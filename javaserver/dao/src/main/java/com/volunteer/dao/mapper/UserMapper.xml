@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.volunteer.dao.mapper.UserMapper">
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user
+        (username,password,status,phone,email)
+        values
+        (#{username},#{password},#{status},#{phone},#{email})
+    </insert>
+
+    <insert id="updateAssignRole">
+        insert into t_user_role (user_id,role_id) values
+        <foreach collection="roles" item="role" separator="," open="(" close=")">
+            #{id}, #{role.id}
+        </foreach>
+    </insert>
+    <delete id="deleteAssignRole">
+        delete from t_user_role where user_id=#{userId}
+    </delete>
+
+    <update id="update" parameterType="User">
+        update t_user set username=#{username},phone=#{phone},email=#{email} where id=#{id}
+    </update>
+
+    <update id="updatePwd">
+        update t_user set password=#{password} where id=#{id}
+    </update>
+
+    <delete id="deleteByIds">
+        delete from t_user
+        <where>
+            userName != 'admin' and
+            <choose>
+                <when test="null != ids">
+                    <foreach collection="ids" item="id" separator="," open="id in ("
+                             close=")">
+                        #{id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    0=1
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+
+    <select id="findByUsernameAndPassword" resultType="User">
+        select * from t_user where username=#{username} and password=#{password}
+    </select>
+
+    <sql id="gridWhere">
+        from t_user a
+        <where>
+            <if test="null != entity">
+                <if test="null != entity.id and 0 != entity.id">
+                    and a.id=#{entity.id}
+                </if>
+                <if test="null != entity.username and '' != entity.username">
+                    and a.username like '%${entity.username}%'
+                </if>
+            </if>
+        </where>
+    </sql>
+    <select id="listPaged" resultType="User">
+        select a.*
+        <include refid="gridWhere" />
+        <if test="tableParam.length > -1">
+            limit #{tableParam.start},#{tableParam.length}
+        </if>
+    </select>
+    <select id="count" resultType="int">
+        select count(a.id)
+        <include refid="gridWhere" />
+    </select>
+
+</mapper>

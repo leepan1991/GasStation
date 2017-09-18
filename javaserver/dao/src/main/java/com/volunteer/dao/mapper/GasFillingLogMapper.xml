@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.volunteer.dao.mapper.GasFillingLogMapper">
+    <delete id="deleteByIds">
+        delete from t_gas_filling_log
+        <where>
+            <choose>
+                <when test="null != ids">
+                    <foreach collection="ids" item="id" separator="," open="id in ("
+                             close=")">
+                        #{id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    0=1
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+
+    <sql id="gridWhere">
+        from t_gas_filling_log a
+        <where>
+            <if test="null != entity">
+                <if test="null != entity.gasBottleCode and entity.gasBottleCode != ''">
+                    and a.gasBottleCode=#{entity.gasBottleCode}
+                </if>
+                <if test="null != entity.gasBottleId and entity.gasBottleId != ''">
+                    and a.gasBottleId=#{entity.gasBottleId}
+                </if>
+                <if test="null != entity.gasBottleRegCode and entity.gasBottleRegCode != ''">
+                    and a.gasBottleRegCode like '%${entity.gasBottleRegCode}%'
+                </if>
+                <if test="null != entity.medium and entity.medium != ''">
+                    and a.medium=#{entity.medium}
+                </if>
+                <if test="null != entity.startFillingTime and entity.startFillingTime != ''">
+                    and a.fillingTime&gt;='${entity.startFillingTime}'
+                </if>
+                <if test="null != entity.endFillingTime and entity.endFillingTime != ''">
+                    and a.fillingTime&lt;='${entity.endFillingTime}'
+                </if>
+            </if>
+        </where>
+    </sql>
+    <select id="listPaged" resultType="GasFillingLog">
+        select a.*
+        <include refid="gridWhere" />
+        order by id desc
+        <if test="tableParam.length > -1">
+            limit #{tableParam.start},#{tableParam.length}
+        </if>
+    </select>
+    <select id="count" resultType="int">
+        select count(a.id)
+        <include refid="gridWhere" />
+    </select>
+
+</mapper>

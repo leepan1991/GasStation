@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.volunteer.dao.mapper.PermissionMapper">
+    <resultMap id="PermissionMap" type="Permission">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="code" property="code"></result>
+        <result column="icon" property="icon"></result>
+        <result column="status" property="status"></result>
+        <result column="type" property="type"></result>
+        <result column="parent_id" property="parentId"></result>
+        <result column="selected" property="selected"></result>
+        <collection property="permissionList" ofType="Permission" javaType="list">
+            <id column="permissionId" property="id"></id>
+            <result column="permissionName" property="name"></result>
+            <result column="permissionCode" property="code"></result>
+            <result column="permissionIcon" property="icon"></result>
+            <result column="permissionStatus" property="status"></result>
+            <result column="permissionType" property="type"></result>
+            <result column="permissionSelected" property="selected"></result>
+        </collection>
+    </resultMap>
+    <insert id="insert" parameterType="Permission" useGeneratedKeys="true" keyProperty="id">
+        insert into t_permission
+        (name,code,icon,status,type<if test="parentId > 0">,parent_id</if>)
+        values
+        (#{name},#{code},#{icon},#{status},#{type}<if test="parentId > 0">,#{parentId}</if>)
+    </insert>
+
+    <update id="update" parameterType="Permission">
+        update t_permission set name=#{name},status=#{status},code=#{code},icon=#{icon},type=#{type},parent_id=#{parentId} where id=#{id}
+    </update>
+
+    <delete id="deleteByIds">
+        delete from t_permission
+        <where>
+            <choose>
+                <when test="null != ids">
+                    <foreach collection="ids" item="id" separator="," open="id in ("
+                             close=")">
+                        #{id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    0=1
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+
+    <select id="selectInfoByUserId" resultMap="PermissionMap">
+        select a.*,b.id permissionId,b.name permissionName,b.code permissionCode,b.selected permissionSelected from (
+            select a.id,a.name,a.code,a.icon,a.parent_id,b.permission_id selected from t_permission a
+            left join t_acl b on a.id=b.permission_id
+            left join t_user_role c on b.role_id=c.role_id and c.user_id=#{userId}
+            where a.status=0 and a.type=0
+        ) a
+        left join
+        (
+            select a.id,a.name,a.code,a.parent_id,b.permission_id selected from t_permission a
+            left join t_acl b on a.id=b.permission_id
+            left join t_user_role c on b.role_id=c.role_id and c.user_id=#{userId}
+            where a.status=0 and a.type=1
+        ) b on a.id=b.parent_id
+    </select>
+
+    <select id="selectMenuByUserId" resultMap="PermissionMap">
+        select a.*,b.id permissionId,b.name permissionName,b.code permissionCode,b.selected permissionSelected from (
+            select a.id,a.name,a.code,a.icon,a.parent_id,b.permission_id selected from t_permission a
+            inner join t_acl b on a.id=b.permission_id
+            inner join t_user_role c on b.role_id=c.role_id and c.user_id=#{userId}
+            where a.status=0 and a.type=0
+        ) a
+        left join
+        (
+            select a.id,a.name,a.code,a.parent_id,b.permission_id selected from t_permission a
+            inner join t_acl b on a.id=b.permission_id
+            inner join t_user_role c on b.role_id=c.role_id and c.user_id=#{userId}
+            where a.status=0 and a.type=1
+        ) b on a.id=b.parent_id
+        where a.id > 0
+    </select>
+    
+    <select id="selectLoopMenu" resultType="Permission">
+        select a.id,a.name,a.code,a.icon,a.parent_id from t_permission a where a.type=0
+    </select>
+
+    <sql id="gridWhere">
+        from t_permission a
+        <where>
+            <if test="null != entity">
+                <if test="null != entity.name and '' != entity.name">
+                    and a.name like '%${entity.name}%'
+                </if>
+                <if test="entity.parentId > 0">
+                    and a.parent_id = #{entity.parentId}
+                </if>
+            </if>
+        </where>
+    </sql>
+    <select id="listPaged" resultType="Permission">
+        select a.*
+        <include refid="gridWhere" />
+        <if test="tableParam.length > -1">
+            limit #{tableParam.start},#{tableParam.length}
+        </if>
+    </select>
+    <select id="count" resultType="int">
+        select count(a.id)
+        <include refid="gridWhere" />
+    </select>
+
+</mapper>
