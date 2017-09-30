@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.volunteer.dao.mapper.EmployeeMapper">
+    <insert id="insert" parameterType="Employee" useGeneratedKeys="true" keyProperty="id">
+        insert into t_employee
+        (name,phone,password,orgId)
+        values
+        (#{name},#{phone},#{password},#{orgId})
+    </insert>
+
+    <update id="update" parameterType="Customer">
+        update t_employee set name=#{name},phone=#{phone},password=#{password} where id=#{id}
+    </update>
+
+    <delete id="deleteByIds">
+        delete from t_employee
+        <where>
+            <choose>
+                <when test="null != ids">
+                    <foreach collection="ids" item="id" separator="," open="id in ("
+                             close=")">
+                        #{id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    0=1
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+
+    <sql id="gridWhere">
+        from t_employee a
+        <where>
+            <if test="null != entity">
+                <if test="null != entity.name and '' != entity.name">
+                    and a.name like '%${entity.name}%'
+                </if>
+            </if>
+        </where>
+    </sql>
+    <select id="listPaged" resultType="Employee">
+        select a.*
+        <include refid="gridWhere" />
+        <if test="tableParam.length > -1">
+            limit #{tableParam.start},#{tableParam.length}
+        </if>
+    </select>
+    <select id="count" resultType="int">
+        select count(a.id)
+        <include refid="gridWhere" />
+    </select>
+
+    <select id="findByPhone" resultType="Employee">
+        select id,name,phone,password,orgId from t_employee where phone=#{phone}
+    </select>
+</mapper>

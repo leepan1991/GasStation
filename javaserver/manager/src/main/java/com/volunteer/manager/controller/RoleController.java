@@ -1,7 +1,7 @@
 package com.volunteer.manager.controller;
 
 import com.volunteer.model.ResponseData;
-import com.volunteer.pojo.Role;
+import com.volunteer.pojo.po.Role;
 import com.volunteer.service.AbstractService;
 import com.volunteer.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

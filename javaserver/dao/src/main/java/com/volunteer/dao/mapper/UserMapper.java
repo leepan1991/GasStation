@@ -1,7 +1,7 @@
 package com.volunteer.dao.mapper;
 
 import com.volunteer.dao.abs.AbstractMapper;
-import com.volunteer.pojo.User;
+import com.volunteer.pojo.po.User;
 import org.apache.ibatis.annotations.Param;
 
 /**

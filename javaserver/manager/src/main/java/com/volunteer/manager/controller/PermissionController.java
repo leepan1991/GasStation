@@ -2,7 +2,7 @@ package com.volunteer.manager.controller;
 
 import com.volunteer.model.ManageLoginUser;
 import com.volunteer.model.ResponseData;
-import com.volunteer.pojo.Permission;
+import com.volunteer.pojo.po.Permission;
 import com.volunteer.service.AbstractService;
 import com.volunteer.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;

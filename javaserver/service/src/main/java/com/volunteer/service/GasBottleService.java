@@ -2,12 +2,9 @@ package com.volunteer.service;
 
 import com.volunteer.dao.abs.AbstractMapper;
 import com.volunteer.dao.mapper.GasBottleMapper;
-import com.volunteer.model.TableParameter;
-import com.volunteer.pojo.GasBottle;
+import com.volunteer.pojo.po.GasBottle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/17 0017.

@@ -1,6 +1,8 @@
-package com.volunteer.pojo;
+package com.volunteer.pojo.po;
 
-public class City extends AbstractEntity { 
+import com.volunteer.pojo.AbstractEntity;
+
+public class City extends AbstractEntity {
 	/** 省份id **/
 	private int provinceId;
 

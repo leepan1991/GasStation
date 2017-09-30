@@ -56,6 +56,14 @@ public class ResponseData {
 	public ResponseData() {
 	}
 
+	public static ResponseData success(String message, Object data) {
+		return new ResponseData(message, data);
+	}
+
+	public static ResponseData error(String message) {
+		return new ResponseData(ResponseData.CODE_ERROR, message, ResponseData.ACTION_TOAST);
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();

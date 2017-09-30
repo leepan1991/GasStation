@@ -1,6 +1,7 @@
-package com.volunteer.pojo;
+package com.volunteer.pojo.po;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.volunteer.pojo.AbstractEntity;
 
 import java.util.Date;
 import java.util.List;

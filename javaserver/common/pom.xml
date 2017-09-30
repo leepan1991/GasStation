@@ -72,6 +72,15 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-multipart </artifactId>
+        </dependency>
+
         <!-- Servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>

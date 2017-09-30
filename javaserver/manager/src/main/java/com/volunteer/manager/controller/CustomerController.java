@@ -1,7 +1,7 @@
 package com.volunteer.manager.controller;
 
 import com.volunteer.model.ResponseData;
-import com.volunteer.pojo.Customer;
+import com.volunteer.pojo.po.Customer;
 import com.volunteer.service.AbstractService;
 import com.volunteer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

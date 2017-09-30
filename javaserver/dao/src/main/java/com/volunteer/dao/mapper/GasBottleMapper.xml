@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.volunteer.dao.mapper.GasBottleMapper">
+    <insert id="insert">
+        insert into t_gas_bottle (orgId,code,bottleCode,deviceName,mediumId,mediumName,manufacturer,manufactureDate,workPressure,volume,weight,wallThickness,lastCheckTime,nextCheckTime,invalidatedDate,longitude,latitude)
+        values (#{orgId},#{code},#{bottleCode},#{deviceName},#{mediumId},#{mediumName},#{manufacturer},#{manufactureDate},#{workPressure},#{volume},#{weight},#{wallThickness},#{lastCheckTime},#{nextCheckTime},#{invalidatedDate},#{longitude},#{latitude})
+    </insert>
     <update id="updateNextCheckTime">
         update t_gas_bottle set nextCheckTime='${nextCheckDate}'
         where id in (
@@ -9,6 +13,10 @@
             #{id}
         </foreach>
         )
+    </update>
+
+    <update id="updateLocation">
+        update t_gas_bottle set longitude=#{longitude},latitude=#{latitude} where orgId=#{orgId} and code=#{code}
     </update>
 
     <delete id="deleteByIds">
@@ -32,23 +40,14 @@
         from t_gas_bottle a
         <where>
             <if test="null != entity">
-                <if test="null != entity.gasBottleCode and entity.gasBottleCode != ''">
-                    and a.gasBottleCode=#{entity.gasBottleCode}
+                <if test="null != entity.bottleCode and entity.bottleCode != ''">
+                    and a.bottleCode=#{entity.bottleCode}
                 </if>
-                <if test="null != entity.gasBottleId and entity.gasBottleId != ''">
-                    and a.gasBottleId=#{entity.gasBottleId}
+                <if test="null != entity.code and entity.code != ''">
+                    and a.code like '%${entity.code}%'
                 </if>
-                <if test="null != entity.gasBottleRegCode and entity.gasBottleRegCode != ''">
-                    and a.gasBottleRegCode like '%${entity.gasBottleRegCode}%'
-                </if>
-                <if test="null != entity.medium and entity.medium != ''">
-                    and a.medium=#{entity.medium}
-                </if>
-                <if test="entity.startNum > 0">
-                    and a.id &gt;=#{entity.startNum}
-                </if>
-                <if test="entity.endNum > 0">
-                    and a.id &lt;=#{entity.endNum}
+                <if test="entity.mediumId > 0">
+                    and a.mediumId=#{entity.mediumId}
                 </if>
             </if>
         </where>
@@ -57,13 +56,13 @@
     <select id="listPaged" resultType="GasBottle">
         select a.*
         <include refid="gridWhere" />
-        order by id desc
+        order by createTime desc
         <if test="tableParam.length > -1">
             limit #{tableParam.start},#{tableParam.length}
         </if>
     </select>
     <select id="count" resultType="int">
-        select count(a.id)
+        select count(*)
         <include refid="gridWhere" />
     </select>
 

@@ -15,9 +15,9 @@ public class ExportTemplate {
 
 		{
 			put("id", new FieldDef("序号"));
-			put("gasBottleRegCode", new FieldDef("气瓶使用登记代码"));
+			put("code", new FieldDef("气瓶使用登记代码"));
 //			put("gasBottleId", new FieldDef("气瓶标识码"));
-			put("gasBottleCode", new FieldDef("瓶身码"));
+			put("bottleCode", new FieldDef("瓶身码"));
 			put("fillingTime", new FieldDef("充装时间"));
 			put("fillingCustomerName", new FieldDef("充装工"));
 			put("inspector", new FieldDef("充装前后检查员"));

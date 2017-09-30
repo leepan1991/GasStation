@@ -6,7 +6,7 @@ import com.volunteer.manager.view.CSVReportView;
 import com.volunteer.model.GasBottleUpdateCheckTime;
 import com.volunteer.model.ResponseData;
 import com.volunteer.model.TableParameter;
-import com.volunteer.pojo.GasBottle;
+import com.volunteer.pojo.po.GasBottle;
 import com.volunteer.service.AbstractService;
 import com.volunteer.service.GasBottleService;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 

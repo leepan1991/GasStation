@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react'
 import {Form, Button, Row, Col, Select, Input} from 'antd'
-import NumRange from './NumRange'
 const FormItem = Form.Item
 const Option = Select.Option
 
@@ -101,16 +100,6 @@ const Filter = ({
               <Option value="9">乙炔气</Option>
               <Option value="10">混合气</Option>
             </Select>)}
-          </FormItem>
-        </Col>
-        <Col span="8">
-          <FormItem label="序号：" {...formItemLayout}>
-            {getFieldDecorator('nums', {
-              initialValue: nums,
-              rules: [{
-                required: false
-              }]
-            })(<NumRange/>)}
           </FormItem>
         </Col>
         <Col span="8">

@@ -8,13 +8,16 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.volunteer.pojo.User" alias="User" />
-		<typeAlias type="com.volunteer.pojo.Role" alias="Role" />
-		<typeAlias type="com.volunteer.pojo.Permission" alias="Permission" />
-		<typeAlias type="com.volunteer.pojo.Acl" alias="Acl" />
-		<typeAlias type="com.volunteer.pojo.GasBottle" alias="GasBottle" />
-		<typeAlias type="com.volunteer.pojo.GasFillingLog" alias="GasFillingLog" />
-		<typeAlias type="com.volunteer.pojo.Customer" alias="Customer" />
+		<typeAlias type="com.volunteer.pojo.po.User" alias="User" />
+		<typeAlias type="com.volunteer.pojo.po.Role" alias="Role" />
+		<typeAlias type="com.volunteer.pojo.po.Permission" alias="Permission" />
+		<typeAlias type="com.volunteer.pojo.po.Acl" alias="Acl" />
+		<typeAlias type="com.volunteer.pojo.po.GasBottle" alias="GasBottle" />
+		<typeAlias type="com.volunteer.pojo.po.GasFillingLog" alias="GasFillingLog" />
+		<typeAlias type="com.volunteer.pojo.po.Customer" alias="Customer" />
+		<typeAlias type="com.volunteer.pojo.po.Employee" alias="Employee" />
+		<typeAlias type="com.volunteer.pojo.po.Org" alias="Org" />
+		<typeAlias type="com.volunteer.pojo.po.Medium" alias="Medium" />
 	</typeAliases>
 	<mappers>
 		<!-- mapper.xml文件要想放到src/main/java路径下面，一定要在maven里面配置resource，<include>**/*.*</include> 
@@ -26,5 +29,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/volunteer/dao/mapper/GasBottleMapper.xml" />
 		<mapper resource="com/volunteer/dao/mapper/GasFillingLogMapper.xml" />
 		<mapper resource="com/volunteer/dao/mapper/CustomerMapper.xml" />
+		<mapper resource="com/volunteer/dao/mapper/EmployeeMapper.xml" />
+		<mapper resource="com/volunteer/dao/mapper/OrgMapper.xml" />
+		<mapper resource="com/volunteer/dao/mapper/MediumMapper.xml" />
 	</mappers>
 </configuration>

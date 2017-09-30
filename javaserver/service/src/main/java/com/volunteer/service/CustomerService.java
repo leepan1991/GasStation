@@ -2,7 +2,7 @@ package com.volunteer.service;
 
 import com.volunteer.dao.abs.AbstractMapper;
 import com.volunteer.dao.mapper.CustomerMapper;
-import com.volunteer.pojo.Customer;
+import com.volunteer.pojo.po.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,6 @@
-package com.volunteer.pojo;
+package com.volunteer.pojo.po;
+
+import com.volunteer.pojo.AbstractEntity;
 
 /**
  * Created by Administrator on 2017/5/17 0017.

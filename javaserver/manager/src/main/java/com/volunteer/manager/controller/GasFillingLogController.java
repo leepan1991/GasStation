@@ -4,7 +4,7 @@ import com.volunteer.common.export.ExportTemplate;
 import com.volunteer.common.export.ExportTool;
 import com.volunteer.manager.view.CSVReportView;
 import com.volunteer.model.TableParameter;
-import com.volunteer.pojo.GasFillingLog;
+import com.volunteer.pojo.po.GasFillingLog;
 import com.volunteer.service.AbstractService;
 import com.volunteer.service.GasFillingLogService;
 import org.apache.commons.lang3.time.DateFormatUtils;

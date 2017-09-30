@@ -1,7 +1,7 @@
 package com.volunteer.model;
 
-import com.volunteer.pojo.Permission;
-import com.volunteer.pojo.User;
+import com.volunteer.pojo.po.Permission;
+import com.volunteer.pojo.po.User;
 
 import java.util.List;
 

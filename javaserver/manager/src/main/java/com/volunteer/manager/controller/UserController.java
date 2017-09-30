@@ -2,8 +2,8 @@ package com.volunteer.manager.controller;
 
 import com.volunteer.manager.web.AclFilter;
 import com.volunteer.model.ManageLoginUser;
-import com.volunteer.pojo.Permission;
-import com.volunteer.pojo.User;
+import com.volunteer.pojo.po.Permission;
+import com.volunteer.pojo.po.User;
 import com.volunteer.service.AbstractService;
 import com.volunteer.service.PermissionService;
 import com.volunteer.service.UserService;
