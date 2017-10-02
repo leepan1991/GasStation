@@ -83,10 +83,18 @@ public class GasBottle {
      */
     private double latitude;
     /**
+     * 状态 0在库 1已出库
+     */
+    private int status;
+    /**
      * 创建时间
      */
     @JSONField(format = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
+    /**
+     * 订单id
+     */
+    private String orderId;
 
     public int getOrgId() {
         return orgId;
@@ -224,11 +232,27 @@ public class GasBottle {
         this.latitude = latitude;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

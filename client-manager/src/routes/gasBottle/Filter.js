@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react'
 import {Form, Button, Row, Col, Select, Input} from 'antd'
+import {Search} from '../../components'
 const FormItem = Form.Item
 const Option = Select.Option
 
@@ -50,8 +51,8 @@ const Filter = ({
       <Row gutter={24}>
         <Col span="8">
           <FormItem label="气瓶登记码：" {...formItemLayout}>
-            {getFieldDecorator('gasBottleRegCode', {
-              initialValue: item.gasBottleRegCode,
+            {getFieldDecorator('code', {
+              initialValue: item.code,
               rules: [{
                 required: false
               }]

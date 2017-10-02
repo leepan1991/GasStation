@@ -1,6 +1,7 @@
-import { create, remove, update, updatePwd, query, assignRole } from '../services/users'
-import { selectWhenAssignRole } from '../services/role'
-import { parse } from 'qs'
+import {create, remove, update, updatePwd, query, assignRole} from '../services/users'
+import {selectWhenAssignRole} from '../services/role'
+import {listAll as listAllOrg} from '../services/org'
+import {parse} from 'qs'
 
 export default {
 
@@ -8,6 +9,7 @@ export default {
 
   state: {
     list: [],
+    orgList: [],
     assignRoleList: [],
     currentItem: {},
     modalVisible: false,
@@ -24,12 +26,15 @@ export default {
   },
 
   subscriptions: {
-    setup ({ dispatch, history }) {
+    setup ({dispatch, history}) {
       history.listen(location => {
         if (location.pathname === '/system/users') {
           dispatch({
             type: 'query',
             payload: location.query
+          })
+          dispatch({
+            type: 'listAllOrg'
           })
         }
       })
@@ -37,7 +42,7 @@ export default {
   },
 
   effects: {
-    *query ({ payload }, { call, put, select }) {
+    *query ({payload}, {call, put, select}) {
       const location = yield select(state => state.routing.locationBeforeTransitions)
       if (!payload || Object.keys(payload).length == 0) {
         payload = location.query;
@@ -53,46 +58,57 @@ export default {
         })
       }
     },
-    *'delete' ({ payload }, { call, put }) {
-      const data = yield call(remove, { id: payload })
+    *listAllOrg ({payload}, {call, put}) {
+      const data = yield call(listAllOrg, payload)
       if (data && data.success) {
-        yield put({ type: 'query' })
+        yield put({
+          type: 'stateChange',
+          payload: {
+            orgList: data.data
+          }
+        })
       }
     },
-    *create ({ payload }, { call, put }) {
-      yield put({ type: 'hideModal' })
+    *'delete' ({payload}, {call, put}) {
+      const data = yield call(remove, {id: payload})
+      if (data && data.success) {
+        yield put({type: 'query'})
+      }
+    },
+    *create ({payload}, {call, put}) {
+      yield put({type: 'hideModal'})
       const data = yield call(create, payload)
       if (data && data.success) {
-        yield put({ type: 'query' })
+        yield put({type: 'query'})
       }
     },
-    *update ({ payload }, { select, call, put }) {
-      yield put({ type: 'hideModal' })
-      const id = yield select(({ users }) => users.currentItem.id)
-      const newUser = { ...payload, id }
+    *update ({payload}, {select, call, put}) {
+      yield put({type: 'hideModal'})
+      const id = yield select(({users}) => users.currentItem.id)
+      const newUser = {...payload, id}
       const data = yield call(update, newUser)
       if (data && data.success) {
-        yield put({ type: 'query' })
+        yield put({type: 'query'})
       }
     },
-    *updatePwd ({ payload }, { select, call, put }) {
-      yield put({ type: 'hidePwdModal' })
-      const id = yield select(({ users }) => users.currentItem.id)
-      const newUser = { ...payload, id }
+    *updatePwd ({payload}, {select, call, put}) {
+      yield put({type: 'hidePwdModal'})
+      const id = yield select(({users}) => users.currentItem.id)
+      const newUser = {...payload, id}
       const data = yield call(updatePwd, newUser)
       if (data && data.success) {
       }
     },
-    *selectWhenAssignRole ({ payload }, { call, put }) {
-      const data = yield call(selectWhenAssignRole, { userId: payload.currentItem.id })
+    *selectWhenAssignRole ({payload}, {call, put}) {
+      const data = yield call(selectWhenAssignRole, {userId: payload.currentItem.id})
       if (data && data.success) {
-        yield put({ type: 'showRoleModal', payload: { currentItem: payload.currentItem, assignRoleList: data.data } })
+        yield put({type: 'showRoleModal', payload: {currentItem: payload.currentItem, assignRoleList: data.data}})
       }
     },
-    *assignRole ({ payload }, { select, call, put }) {
-      yield put({ type: 'hideRoleModal' })
-      const id = yield select(({ users }) => users.currentItem.id)
-      const newUser = { ...payload, id }
+    *assignRole ({payload}, {select, call, put}) {
+      yield put({type: 'hideRoleModal'})
+      const id = yield select(({users}) => users.currentItem.id)
+      const newUser = {...payload, id}
       const data = yield call(assignRole, newUser)
       if (data && data.success) {
       }
@@ -101,31 +117,36 @@ export default {
 
   reducers: {
     querySuccess (state, action) {
-      const { list, pagination } = action.payload
-      return { ...state,
+      const {list, pagination} = action.payload
+      return {
+        ...state,
         list,
         pagination: {
           ...state.pagination,
           ...pagination,
-        } }
+        }
+      }
+    },
+    stateChange (state, action) {
+      return {...state, ...action.payload}
     },
     showModal (state, action) {
-      return { ...state, ...action.payload, modalVisible: true }
+      return {...state, ...action.payload, modalVisible: true}
     },
     hideModal (state) {
-      return { ...state, modalVisible: false }
+      return {...state, modalVisible: false}
     },
     showPwdModal (state, action) {
-      return { ...state, ...action.payload, pwdModalVisible: true }
+      return {...state, ...action.payload, pwdModalVisible: true}
     },
     hidePwdModal (state) {
-      return { ...state, pwdModalVisible: false }
+      return {...state, pwdModalVisible: false}
     },
     showRoleModal (state, action) {
-      return { ...state, ...action.payload, roleModalVisible: true }
+      return {...state, ...action.payload, roleModalVisible: true}
     },
     hideRoleModal (state) {
-      return { ...state, roleModalVisible: false }
+      return {...state, roleModalVisible: false}
     }
   },
 

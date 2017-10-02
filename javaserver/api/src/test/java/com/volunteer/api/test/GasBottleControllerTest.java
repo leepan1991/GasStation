@@ -2,6 +2,7 @@ package com.volunteer.api.test;
 
 import com.alibaba.fastjson.JSON;
 import com.volunteer.common.HttpUtil;
+import com.volunteer.pojo.dto.GasBottleDTO;
 import com.volunteer.pojo.po.GasBottle;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,5 +39,12 @@ public class GasBottleControllerTest extends BaseTest {
         gasBottle.setWorkPressure("压强");
         HttpUtil.postJSON(String
                 .format("%s/gasBottle/create?token=%s", URL_BASE, appLoginInfo.getToken()), JSON.toJSONString(gasBottle));
+    }
+
+    @Test
+    public void delivery() throws Exception {
+        GasBottleDTO gasBottleDTO = new GasBottleDTO();
+        HttpUtil.postJSON(String
+                .format("%s/gasBottle/delivery?token=%s", URL_BASE, appLoginInfo.getToken()), JSON.toJSONString(gasBottleDTO));
     }
 }

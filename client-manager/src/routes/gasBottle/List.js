@@ -19,7 +19,7 @@ function list({loading, dataSource, pagination, onPageChange, onDeleteItem, onEd
   }
 
   const columns = [{
-    title: '气瓶代码',
+    title: '气瓶登记码',
     dataIndex: 'code',
     key: 'code'
   }, {

@@ -60,6 +60,10 @@ public class ResponseData {
 		return new ResponseData(message, data);
 	}
 
+	public static ResponseData success(String message) {
+		return new ResponseData(message, ResponseData.ACTION_TOAST);
+	}
+
 	public static ResponseData error(String message) {
 		return new ResponseData(ResponseData.CODE_ERROR, message, ResponseData.ACTION_TOAST);
 	}

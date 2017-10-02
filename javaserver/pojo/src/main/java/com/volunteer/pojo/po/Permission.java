@@ -14,6 +14,7 @@ public class Permission extends AbstractEntity {
     private int status;
     private int type;
     private int parentId;
+    private int order;
 
     private boolean selected;
     private List<Permission> children;
@@ -65,6 +66,14 @@ public class Permission extends AbstractEntity {
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     public boolean isSelected() {

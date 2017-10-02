@@ -4,9 +4,9 @@
 <mapper namespace="com.volunteer.dao.mapper.UserMapper">
     <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
         insert into t_user
-        (username,password,status,phone,email)
+        (username,password,status,phone,email,orgId)
         values
-        (#{username},#{password},#{status},#{phone},#{email})
+        (#{username},#{password},#{status},#{phone},#{email},#{orgId})
     </insert>
 
     <insert id="updateAssignRole">

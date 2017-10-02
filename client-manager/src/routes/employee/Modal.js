@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import { Form, Input, Radio, Modal } from 'antd'
+import React, {PropTypes} from 'react'
+import {Form, Input, Radio, Modal} from 'antd'
 const FormItem = Form.Item
 
 const formItemLayout = {
@@ -12,18 +12,18 @@ const formItemLayout = {
 }
 
 const modal = ({
-  visible,
-  type,
-  item = {},
-  onOk,
-  onCancel,
-  form: {
-    getFieldDecorator,
-    validateFields,
-    getFieldsValue,
-  },
-}) => {
-  function handleOk () {
+                 visible,
+                 type,
+                 item = {},
+                 onOk,
+                 onCancel,
+                 form: {
+                   getFieldDecorator,
+                   validateFields,
+                   getFieldsValue,
+                 },
+               }) => {
+  function handleOk() {
     validateFields((errors) => {
       if (errors) {
         return
@@ -50,34 +50,28 @@ const modal = ({
         <FormItem label="名称" hasFeedback {...formItemLayout}>
           {getFieldDecorator('name', {
             initialValue: item.name,
-            rules: [
-              {
-                required: true,
-                message: '名称未填写'
-              }
-            ]
+            rules: [{
+              required: true,
+              message: '名称未填写'
+            }]
           })(<Input />)}
         </FormItem>
-        <FormItem label="用户名" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('userName', {
-            initialValue: item.userName,
-            rules: [
-              {
-                required: true,
-                message: '用户名未填写'
-              }
-            ]
+        <FormItem label="电话号码" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('phone', {
+            initialValue: item.phone,
+            rules: [{
+              required: true,
+              message: '电话号码未填写'
+            }]
           })(<Input />)}
         </FormItem>
         <FormItem label="密码" hasFeedback {...formItemLayout}>
           {getFieldDecorator('password', {
             initialValue: item.password,
-            rules: [
-              {
-                required: true,
-                message: '密码未填写'
-              }
-            ]
+            rules: [{
+              required: true,
+              message: '密码未填写'
+            }]
           })(<Input />)}
         </FormItem>
       </Form>

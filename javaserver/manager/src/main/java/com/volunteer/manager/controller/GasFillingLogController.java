@@ -3,17 +3,20 @@ package com.volunteer.manager.controller;
 import com.volunteer.common.export.ExportTemplate;
 import com.volunteer.common.export.ExportTool;
 import com.volunteer.manager.view.CSVReportView;
+import com.volunteer.model.ManageLoginUser;
+import com.volunteer.model.ResponseData;
 import com.volunteer.model.TableParameter;
 import com.volunteer.pojo.po.GasFillingLog;
-import com.volunteer.service.AbstractService;
 import com.volunteer.service.GasFillingLogService;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("gasFillingLog")
-public class GasFillingLogController extends AbstractController<GasFillingLog> {
+public class GasFillingLogController extends AbstractController {
 
     @Autowired
     private GasFillingLogService gasFillingLogService;
@@ -46,9 +49,18 @@ public class GasFillingLogController extends AbstractController<GasFillingLog> {
         return new ModelAndView(new CSVReportView(dateTime + "-明细", file, true));
     }
 
+    @ResponseBody
+    @RequestMapping(value = "delete")
+    public ResponseData delete(String id) {
+        this.gasFillingLogService.deleteByIds(new Object[] { id });
+        return ResponseData.success("删除成功");
+    }
 
-    @Override
-    public AbstractService<GasFillingLog> getAbstractService() {
-        return gasFillingLogService;
+    @ResponseBody
+    @RequestMapping(value = "listPaged")
+    public ResponseData listPaged(TableParameter parameter, GasFillingLog entity, HttpSession session) {
+        ManageLoginUser loginUser = this.getLoginUser(session);
+        entity.setOrgId(loginUser.getUser().getOrgId());
+        return ResponseData.success("OK", this.gasFillingLogService.listPaged(parameter, entity));
     }
 }

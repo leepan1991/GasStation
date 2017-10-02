@@ -1,34 +1,65 @@
 package com.volunteer.service;
 
-import com.volunteer.dao.abs.AbstractMapper;
-import com.volunteer.dao.mapper.EmployeeMapper;
 import com.volunteer.dao.mapper.OrgMapper;
-import com.volunteer.pojo.po.Employee;
+import com.volunteer.model.TableData;
+import com.volunteer.model.TableParameter;
 import com.volunteer.pojo.po.Org;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/17 0017.
  */
 @Service
-public class OrgService extends AbstractService<Org> {
+public class OrgService extends AbstractService {
 
     @Autowired
     private OrgMapper orgMapper;
 
-    public OrgService() {
-        super(Org.class);
+    /**
+     * 创建实体
+     *
+     * @param entity
+     */
+    public int insert(Org entity) {
+        return orgMapper.insert(entity);
     }
 
-    public Org getById(int id) {
-        return this.orgMapper.getById(id);
+    /**
+     * 更新实体
+     *
+     * @param entity
+     */
+    public int update(Org entity) {
+        return orgMapper.update(entity);
     }
 
-    @Override
-    public AbstractMapper getAbstractMapper() {
-        return this.orgMapper;
+    /**
+     * 批量删除实体
+     *
+     * @param ids
+     * @return
+     */
+    public void deleteByIds(Object ids) {
+        orgMapper.deleteByIds(ids);
+    }
+
+    /**
+     * 分页
+     *
+     * @return
+     */
+    public TableData listPaged(TableParameter parameter, Org entity) {
+        TableData tableData = new TableData();
+        tableData.data = this.orgMapper.listPaged(parameter, entity);
+        parameter.setTotal(this.orgMapper.count(entity));
+        tableData.page = parameter;
+        return tableData;
+    }
+
+    public List<Org> listAll() {
+        return orgMapper.listAll();
     }
 }

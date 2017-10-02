@@ -19,6 +19,9 @@ module.exports = function (webpackConfig, env) {
   } else {
     webpackConfig.babel.plugins.push('dev-expression')
     webpackConfig.entry = { index: './src/_index.js' }
+    webpackConfig.output = {
+      publicPath: '/webmanager/'
+    }
   }
 
   // Don't extract common.js and common.css

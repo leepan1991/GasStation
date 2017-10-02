@@ -55,4 +55,8 @@
     <select id="getById" resultType="Org">
         select id,name from t_org where id=#{id}
     </select>
+
+    <select id="listAll" resultType="Org">
+        select id,name from t_org
+    </select>
 </mapper>

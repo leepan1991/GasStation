@@ -30,6 +30,14 @@ const Routers = function ({ history, app }) {
         }, 'gasFillingLog')
       },
       childRoutes: [{
+        path: 'system/org',
+        getComponent (nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./models/org'))
+            cb(null, require('./routes/org/'))
+          }, 'org')
+        }
+      }, {
         path: 'system/users',
         getComponent (nextState, cb) {
           require.ensure([], require => {
@@ -70,12 +78,20 @@ const Routers = function ({ history, app }) {
           }, 'gasFillingLog')
         }
       }, {
-        path: 'customer',
+        path: 'employee',
         getComponent (nextState, cb) {
           require.ensure([], require => {
-            registerModel(app, require('./models/customer'))
-            cb(null, require('./routes/customer/'))
+            registerModel(app, require('./models/employee'))
+            cb(null, require('./routes/employee/'))
           }, 'customer')
+        }
+      }, {
+        path: 'order',
+        getComponent (nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./models/order'))
+            cb(null, require('./routes/order/'))
+          }, 'order')
         }
       }, {
         path: '*',

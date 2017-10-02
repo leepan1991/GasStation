@@ -24,7 +24,6 @@
     </delete>
 
     <sql id="gridWhere">
-        from t_gas_filling_log a
         <where>
             <if test="null != entity">
                 <if test="null != entity.code and entity.code != ''">
@@ -34,7 +33,9 @@
         </where>
     </sql>
     <select id="listPaged" resultType="GasFillingLog">
-        select a.*
+        select a.*,b.name fillingerName
+        from t_gas_filling_log a
+        left join t_employee b on a.fillinger=b.id
         <include refid="gridWhere" />
         order by id desc
         <if test="tableParam.length > -1">
@@ -43,6 +44,7 @@
     </select>
     <select id="count" resultType="int">
         select count(a.id)
+        from t_gas_filling_log a
         <include refid="gridWhere" />
     </select>
 

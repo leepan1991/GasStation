@@ -14,6 +14,18 @@
         </foreach>
         )
     </update>
+    <update id="updateWhenStorage">
+        update t_gas_bottle set status=0,orderId=null where orgId=#{orgId} and code=#{code}
+    </update>
+    <update id="updateWhenDelivery">
+        update t_gas_bottle set status=1,orderId=#{orderId} where orgId=#{orgId} and code=#{code}
+    </update>
+    <insert id="updateDealWhenStorage">
+        replace into t_order_bottle (bottleCode,orderId,storageTime) values (#{bottleCode}, #{orderId}, now())
+    </insert>
+    <insert id="updateDealWhenDelivery">
+        replace into t_order_bottle (bottleCode,orderId,deliveryTime) values (#{bottleCode}, #{orderId}, now())
+    </insert>
 
     <update id="updateLocation">
         update t_gas_bottle set longitude=#{longitude},latitude=#{latitude} where orgId=#{orgId} and code=#{code}
@@ -24,10 +36,11 @@
         <where>
             <choose>
                 <when test="null != ids">
-                    <foreach collection="ids" item="id" separator="," open="id in ("
+                    <foreach collection="ids" item="id" separator="," open="code in ("
                              close=")">
                         #{id}
                     </foreach>
+                    and orgId=#{orgId}
                 </when>
                 <otherwise>
                     0=1
@@ -49,6 +62,9 @@
                 <if test="entity.mediumId > 0">
                     and a.mediumId=#{entity.mediumId}
                 </if>
+                <if test="entity.orgId > 0">
+                    and a.orgId=#{entity.orgId}
+                </if>
             </if>
         </where>
     </sql>
@@ -66,4 +82,7 @@
         <include refid="gridWhere" />
     </select>
 
+    <select id="getById" resultType="GasBottle">
+        select * from t_gas_bottle where orgId=#{orgId} and code=#{code}
+    </select>
 </mapper>

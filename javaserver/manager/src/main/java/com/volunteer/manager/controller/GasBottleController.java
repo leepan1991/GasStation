@@ -4,6 +4,7 @@ import com.volunteer.common.export.ExportTemplate;
 import com.volunteer.common.export.ExportTool;
 import com.volunteer.manager.view.CSVReportView;
 import com.volunteer.model.GasBottleUpdateCheckTime;
+import com.volunteer.model.ManageLoginUser;
 import com.volunteer.model.ResponseData;
 import com.volunteer.model.TableParameter;
 import com.volunteer.pojo.po.GasBottle;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("gasBottle")
-public class GasBottleController extends AbstractController<GasBottle> {
+public class GasBottleController extends AbstractController {
 
     @Autowired
     private GasBottleService gasBottleService;
@@ -53,11 +55,20 @@ public class GasBottleController extends AbstractController<GasBottle> {
     @ResponseBody
     @RequestMapping(value = "updateNextCheckTime")
     public ResponseData updateNextCheckTime(@RequestBody GasBottleUpdateCheckTime entity) {
-        return this.response("更新成功", this.gasBottleService.updateNextCheckTime(entity.getIds(), entity.getNextCheckDate()));
+        return ResponseData.success("OK", this.gasBottleService.updateNextCheckTime(entity.getIds(), entity.getNextCheckDate()));
     }
 
-    @Override
-    public AbstractService<GasBottle> getAbstractService() {
-        return gasBottleService;
+    @ResponseBody
+    @RequestMapping(value = "delete")
+    public ResponseData delete(String id, HttpSession session) {
+        ManageLoginUser loginUser = super.getLoginUser(session);
+        this.gasBottleService.deleteByIds(new Object[] { id }, loginUser.getUser().getOrgId());
+        return ResponseData.success("删除成功");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "listPaged")
+    public ResponseData listPaged(TableParameter parameter, GasBottle entity) {
+        return ResponseData.success("OK", this.gasBottleService.listPaged(parameter, entity));
     }
 }

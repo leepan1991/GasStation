@@ -39,6 +39,8 @@ public class GasFillingLog extends AbstractEntity {
      */
     private double latitude;
 
+    private String fillingerName;
+
     public int getOrgId() {
         return orgId;
     }
@@ -93,5 +95,13 @@ public class GasFillingLog extends AbstractEntity {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public String getFillingerName() {
+        return fillingerName;
+    }
+
+    public void setFillingerName(String fillingerName) {
+        this.fillingerName = fillingerName;
     }
 }

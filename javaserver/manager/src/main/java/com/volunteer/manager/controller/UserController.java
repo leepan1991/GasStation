@@ -2,7 +2,9 @@ package com.volunteer.manager.controller;
 
 import com.volunteer.manager.web.AclFilter;
 import com.volunteer.model.ManageLoginUser;
+import com.volunteer.model.TableParameter;
 import com.volunteer.pojo.po.Permission;
+import com.volunteer.pojo.po.Role;
 import com.volunteer.pojo.po.User;
 import com.volunteer.service.AbstractService;
 import com.volunteer.service.PermissionService;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("user")
-public class UserController extends AbstractController<User> {
+public class UserController extends AbstractController {
 
     @Autowired
     private UserService userService;
@@ -76,33 +78,41 @@ public class UserController extends AbstractController<User> {
     @ResponseBody
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public ResponseData add(@RequestBody User user) {
-        this.getAbstractService().insert(user);
-        return this.response("添加用户成功", ResponseData.ACTION_TOAST);
+        this.userService.insert(user);
+        return ResponseData.success("添加用户成功");
     }
 
     @ResponseBody
     @RequestMapping(value = "update", method = { RequestMethod.POST, RequestMethod.PUT })
     public ResponseData update(@RequestBody User user) {
-        this.getAbstractService().update(user);
-        return this.response("修改用户成功", ResponseData.ACTION_TOAST);
+        this.userService.update(user);
+        return ResponseData.success("修改用户成功");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "delete")
+    public ResponseData delete(String id) {
+        this.userService.deleteByIds(new Object[] { id });
+        return ResponseData.success("删除成功");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "listPaged")
+    public ResponseData listPaged(TableParameter parameter, User entity) {
+        return ResponseData.success("OK", this.userService.listPaged(parameter, entity));
     }
 
     @ResponseBody
     @RequestMapping(value = "updatePwd")
     public ResponseData updatePwd(@RequestBody User user) {
         this.userService.updatePwd(user);
-        return this.response("修改密码成功", ResponseData.ACTION_TOAST);
+        return ResponseData.success("修改密码成功");
     }
 
     @ResponseBody
     @RequestMapping(value = "assignRole")
     public ResponseData assignRole(@RequestBody User user) {
         this.userService.updateAssignRole(user);
-        return this.response("修改密码成功", ResponseData.ACTION_TOAST);
-    }
-
-    @Override
-    public AbstractService<User> getAbstractService() {
-        return userService;
+        return ResponseData.success("修改密码成功");
     }
 }

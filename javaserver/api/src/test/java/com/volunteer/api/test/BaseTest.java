@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.volunteer.common.HttpUtil;
 import com.volunteer.model.ResponseData;
 import com.volunteer.pojo.dto.LoginInfo;
+import com.volunteer.pojo.po.Employee;
 
 public class BaseTest {
 
@@ -16,6 +17,8 @@ public class BaseTest {
 	protected static void login() throws Exception {
 		ResponseData result = HttpUtil.executeGet(String.format("%s/login?phone=%s&password=%s", URL_BASE, PHONE, PASSWORD),
 				ResponseData.class);
+//		Employee employee = new Employee();
+//		HttpUtil.postJSON(String.format("%s/login?phone=%s&password=%s", URL_BASE, PHONE, PASSWORD), JSON.toJSONString(employee))
 		String resultObject = result.data.toString();
 		appLoginInfo = JSON.parseObject(resultObject, LoginInfo.class);
 		System.out.println(appLoginInfo.getToken());

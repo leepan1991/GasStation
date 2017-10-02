@@ -2,6 +2,8 @@ package com.volunteer.service;
 
 import com.volunteer.dao.abs.AbstractMapper;
 import com.volunteer.dao.mapper.UserMapper;
+import com.volunteer.model.TableData;
+import com.volunteer.model.TableParameter;
 import com.volunteer.pojo.po.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,50 @@ import org.springframework.stereotype.Service;
  * Created by Administrator on 2017/5/17 0017.
  */
 @Service
-public class UserService extends AbstractService<User> {
+public class UserService extends AbstractService {
 
     @Autowired
     private UserMapper userMapper;
 
-    public UserService() {
-        super(User.class);
+    /**
+     * 创建实体
+     *
+     * @param entity
+     */
+    public int insert(User entity) {
+        return userMapper.insert(entity);
+    }
+
+    /**
+     * 更新实体
+     *
+     * @param entity
+     */
+    public int update(User entity) {
+        return userMapper.update(entity);
+    }
+
+    /**
+     * 批量删除实体
+     *
+     * @param ids
+     * @return
+     */
+    public void deleteByIds(Object ids) {
+        userMapper.deleteByIds(ids);
+    }
+
+    /**
+     * 分页
+     *
+     * @return
+     */
+    public TableData listPaged(TableParameter parameter, User entity) {
+        TableData tableData = new TableData();
+        tableData.data = this.userMapper.listPaged(parameter, entity);
+        parameter.setTotal(this.userMapper.count(entity));
+        tableData.page = parameter;
+        return tableData;
     }
 
     public User login(User user) {
@@ -46,10 +85,5 @@ public class UserService extends AbstractService<User> {
             return this.userMapper.updateAssignRole(user);
         }
         return 0;
-    }
-
-    @Override
-    public AbstractMapper getAbstractMapper() {
-        return this.userMapper;
     }
 }

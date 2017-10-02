@@ -19,6 +19,7 @@ public class User extends AbstractEntity {
     private Date lastLoginTime;
     private int userType;
     private int status;
+    private int OrgId;
 
     @JSONField(serialize = false)
     private List<Role> roles;
@@ -93,5 +94,13 @@ public class User extends AbstractEntity {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public int getOrgId() {
+        return OrgId;
+    }
+
+    public void setOrgId(int orgId) {
+        OrgId = orgId;
     }
 }

@@ -8,12 +8,13 @@ import PwdModal from './PwdModal'
 import RoleModal from './RoleModal'
 
 function Users ({ location, dispatch, users, loading }) {
-  const { list, assignRoleList, pagination, currentItem, modalVisible, pwdModalVisible, roleModalVisible, modalType } = users
+  const { list, orgList, assignRoleList, pagination, currentItem, modalVisible, pwdModalVisible, roleModalVisible, modalType } = users
   const { field, keyword } = location.query
 
   const modalProps = {
     item: modalType === 'create' ? {} : currentItem,
     type: modalType,
+    orgList,
     visible: modalVisible,
     onOk (data) {
       dispatch({
@@ -114,6 +115,7 @@ function Users ({ location, dispatch, users, loading }) {
   const filterProps = {
     field,
     keyword,
+    orgList,
     onSearch (fieldsValue) {
       fieldsValue.keyword.length ? dispatch(routerRedux.push({
         pathname: '/system/users',

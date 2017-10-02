@@ -61,50 +61,6 @@ const Filter = ({
           </FormItem>
         </Col>
         <Col span="8">
-          <FormItem label="气瓶标识码：" {...formItemLayout}>
-            {getFieldDecorator('gasBottleId', {
-              initialValue: item.gasBottleId,
-              rules: [{
-                required: false
-              }]
-            })(<Input />)}
-          </FormItem>
-        </Col>
-        <Col span="8">
-          <FormItem label="瓶身码：" {...formItemLayout}>
-            {getFieldDecorator('gasBottleCode', {
-              initialValue: item.gasBottleCode,
-              rules: [{
-                required: false
-              }]
-            })(<Input />)}
-          </FormItem>
-        </Col>
-      </Row>
-      <Row gutter={24}>
-        <Col span="8">
-          <FormItem label="充装介质：" {...formItemLayout}>
-            {getFieldDecorator('medium', {
-              initialValue: item.medium,
-              rules: [{
-                required: false
-              }]
-            })(<Select allowClear>
-              <Option value="0">工业氧气</Option>
-              <Option value="1">工业氮气</Option>
-              <Option value="2">工业氩气</Option>
-              <Option value="3">液体二氧化碳</Option>
-              <Option value="4">液体氧</Option>
-              <Option value="5">液体氮</Option>
-              <Option value="6">液体氩</Option>
-              <Option value="7">液化石油气</Option>
-              <Option value="8">丙烷气</Option>
-              <Option value="9">乙炔气</Option>
-              <Option value="10">混合气</Option>
-            </Select>)}
-          </FormItem>
-        </Col>
-        <Col span="8">
           <FormItem label="充装时间：" {...formItemLayout}>
             {getFieldDecorator('fillingTime', {
               initialValue: fillingTime,

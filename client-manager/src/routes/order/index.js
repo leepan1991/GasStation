@@ -5,21 +5,21 @@ import List from './List'
 import Filter from './Filter'
 import Modal from './Modal'
 
-function Customer({location, dispatch, customer, loading}) {
-  const {list, pagination, currentItem, modalVisible, modalType} = customer
+function Order({location, dispatch, order, loading}) {
+  const {list, pagination, currentItem, modalVisible, modalType} = order
   const modalProps = {
     item: modalType === 'create' ? {} : currentItem,
     type: modalType,
     visible: modalVisible,
     onOk (data) {
       dispatch({
-        type: `customer/${modalType}`,
+        type: `order/${modalType}`,
         payload: data,
       })
     },
     onCancel () {
       dispatch({
-        type: 'customer/hideModal'
+        type: 'order/hideModal'
       })
     }
   }
@@ -42,13 +42,13 @@ function Customer({location, dispatch, customer, loading}) {
     },
     onDeleteItem (id) {
       dispatch({
-        type: 'customer/delete',
+        type: 'order/delete',
         payload: id
       })
     },
     onEditItem (item) {
       dispatch({
-        type: 'customer/showModal',
+        type: 'order/showModal',
         payload: {
           modalType: 'update',
           currentItem: item
@@ -61,17 +61,17 @@ function Customer({location, dispatch, customer, loading}) {
     location,
     onSearch (fieldsValue) {
       fieldsValue.keyword.length ? dispatch(routerRedux.push({
-        pathname: '/customer',
+        pathname: '/order',
         query: {
           [fieldsValue.field]: fieldsValue.keyword
         }
       })) : dispatch(routerRedux.push({
-        pathname: '/customer'
+        pathname: '/order'
       }))
     },
     onAdd () {
       dispatch({
-        type: 'customer/showModal',
+        type: 'order/showModal',
         payload: {
           modalType: 'create',
         }
@@ -90,11 +90,11 @@ function Customer({location, dispatch, customer, loading}) {
   )
 }
 
-Customer.propTypes = {
-  customer: PropTypes.object,
+Order.propTypes = {
+  order: PropTypes.object,
   location: PropTypes.object,
   dispatch: PropTypes.func,
   loading: PropTypes.bool,
 }
 
-export default connect(({customer, loading}) => ({customer, loading: loading.models.customer}))(Customer)
+export default connect(({order, loading}) => ({order, loading: loading.models.order}))(Order)

@@ -1,7 +1,8 @@
 package com.volunteer.service;
 
-import com.volunteer.dao.abs.AbstractMapper;
 import com.volunteer.dao.mapper.PermissionMapper;
+import com.volunteer.model.TableData;
+import com.volunteer.model.TableParameter;
 import com.volunteer.pojo.po.Permission;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,50 @@ import java.util.List;
  * Created by Administrator on 2017/5/17 0017.
  */
 @Service
-public class PermissionService extends AbstractService<Permission> {
+public class PermissionService extends AbstractService {
 
     @Autowired
     private PermissionMapper permissionMapper;
 
-    public PermissionService() {
-        super(Permission.class);
+    /**
+     * 创建实体
+     *
+     * @param entity
+     */
+    public int insert(Permission entity) {
+        return permissionMapper.insert(entity);
+    }
+
+    /**
+     * 更新实体
+     *
+     * @param entity
+     */
+    public int update(Permission entity) {
+        return permissionMapper.update(entity);
+    }
+
+    /**
+     * 批量删除实体
+     *
+     * @param ids
+     * @return
+     */
+    public void deleteByIds(Object ids) {
+        permissionMapper.deleteByIds(ids);
+    }
+
+    /**
+     * 分页
+     *
+     * @return
+     */
+    public TableData listPaged(TableParameter parameter, Permission entity) {
+        TableData tableData = new TableData();
+        tableData.data = this.permissionMapper.listPaged(parameter, entity);
+        parameter.setTotal(this.permissionMapper.count(entity));
+        tableData.page = parameter;
+        return tableData;
     }
 
     public List<Permission> selectInfoByUserId(int userId) {
@@ -66,10 +104,5 @@ public class PermissionService extends AbstractService<Permission> {
     public List<Permission> selectLoopMenu() {
         List<Permission> permissions = this.permissionMapper.selectLoopMenu();
         return this.arrangementLevel(permissions);
-    }
-
-    @Override
-    public AbstractMapper getAbstractMapper() {
-        return this.permissionMapper;
     }
 }

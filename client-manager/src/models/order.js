@@ -1,10 +1,9 @@
-import {create, remove, update, query} from '../services/customer'
+import {create, remove, update, query} from '../services/order'
 import {parse} from 'qs'
-import {message} from 'antd'
 
 export default {
 
-  namespace: 'customer',
+  namespace: 'order',
 
   state: {
     list: [],
@@ -23,7 +22,7 @@ export default {
   subscriptions: {
     setup ({dispatch, history}) {
       history.listen(location => {
-        if (location.pathname === '/customer') {
+        if (location.pathname === '/order') {
           dispatch({
             type: 'query',
             payload: location.query,
@@ -79,7 +78,7 @@ export default {
     },
     *update ({payload}, {select, call, put}) {
       yield put({type: 'hideModal'})
-      const id = yield select(({customer}) => customer.currentItem.id)
+      const id = yield select(({order}) => order.currentItem.id)
       const newOne = {...payload, id}
       const data = yield call(update, newOne)
       if (data && data.success) {
@@ -115,6 +114,5 @@ export default {
     hideModal (state) {
       return {...state, modalVisible: false}
     }
-  },
-
+  }
 }

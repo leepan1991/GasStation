@@ -25,15 +25,11 @@ function list ({ loading, dataSource, pagination, onPageChange, onDeleteItem, on
       dataIndex: 'name',
       key: 'name'
     }, {
-      title: '账号',
-      dataIndex: 'userName',
-      key: 'userName'
-    }, {
       title: '操作',
       key: 'operation',
       width: 80,
       render: (text, record) => {
-        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: '编辑' }]} />
+        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: '编辑' }, { key: '2', name: '删除' }]} />
       }
     }
   ]
