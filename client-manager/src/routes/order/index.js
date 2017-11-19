@@ -54,6 +54,15 @@ function Order({location, dispatch, order, loading}) {
           currentItem: item
         }
       })
+    },
+    onShowBottle (item) {
+      dispatch(routerRedux.push({
+        pathname: 'gasBottle',
+        query: {
+          orderId: item.id,
+          unitName: item.unitName
+        }
+      }))
     }
   }
 

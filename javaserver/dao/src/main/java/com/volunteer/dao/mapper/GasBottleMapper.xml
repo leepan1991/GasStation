@@ -21,10 +21,10 @@
         update t_gas_bottle set status=1,orderId=#{orderId} where orgId=#{orgId} and code=#{code}
     </update>
     <insert id="updateDealWhenStorage">
-        replace into t_order_bottle (bottleCode,orderId,storageTime) values (#{bottleCode}, #{orderId}, now())
+        insert into t_order_bottle (bottleCode,orderId,storageTime) values (#{bottleCode}, #{orderId}, now()) ON DUPLICATE KEY UPDATE storageTime=now()
     </insert>
     <insert id="updateDealWhenDelivery">
-        replace into t_order_bottle (bottleCode,orderId,deliveryTime) values (#{bottleCode}, #{orderId}, now())
+        insert into t_order_bottle (bottleCode,orderId,deliveryTime) values (#{bottleCode}, #{orderId}, now()) ON DUPLICATE KEY UPDATE deliveryTime=now()
     </insert>
 
     <update id="updateLocation">
@@ -51,6 +51,9 @@
 
     <sql id="gridWhere">
         from t_gas_bottle a
+        <if test="entity.orderId != null and entity.orderId != ''">
+            left join t_order_bottle b on a.code=b.bottleCode
+        </if>
         <where>
             <if test="null != entity">
                 <if test="null != entity.bottleCode and entity.bottleCode != ''">
@@ -64,6 +67,9 @@
                 </if>
                 <if test="entity.orgId > 0">
                     and a.orgId=#{entity.orgId}
+                </if>
+                <if test="entity.orderId != null and entity.orderId != ''">
+                    and b.orderId=#{entity.orderId}
                 </if>
             </if>
         </where>

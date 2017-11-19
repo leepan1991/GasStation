@@ -43,11 +43,16 @@ const Filter = ({
   }
 
   const exportHandle = () => {
-    onExport(getData())
+    onExport(location.query)
   }
 
   return (
     <Form>
+      {
+        (location.query.orderId && location.query.unitName) && <Row gutter={24} style={{paddingBottom: 12}}>
+          <Col span={24}><h3>单位名称：{location.query.unitName}</h3></Col>
+        </Row>
+      }
       <Row gutter={24}>
         <Col span="8">
           <FormItem label="气瓶登记码：" {...formItemLayout}>

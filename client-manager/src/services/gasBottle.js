@@ -7,6 +7,13 @@ export async function query (params) {
     data: params
   })
 }
+export async function findLocation (params) {
+  return request({
+    url: '/manager/gasBottle/findLocation',
+    method: 'get',
+    data: params
+  })
+}
 
 export async function remove (params) {
   return request({

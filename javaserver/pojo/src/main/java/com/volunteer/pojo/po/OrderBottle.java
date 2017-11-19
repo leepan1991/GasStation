@@ -1,5 +1,7 @@
 package com.volunteer.pojo.po;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 /**
@@ -10,6 +12,9 @@ public class OrderBottle {
     private String orderId;
     private Date storageTime;
     private Date deliveryTime;
+
+    @JSONField(serialize = false)
+    private int orgId;
 
     public String getBottleCode() {
         return bottleCode;
@@ -41,5 +46,13 @@ public class OrderBottle {
 
     public void setDeliveryTime(Date deliveryTime) {
         this.deliveryTime = deliveryTime;
+    }
+
+    public int getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(int orgId) {
+        this.orgId = orgId;
     }
 }

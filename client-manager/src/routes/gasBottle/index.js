@@ -4,9 +4,10 @@ import {connect} from 'dva'
 import List from './List'
 import Filter from './Filter'
 import Modal from './Modal'
+import LocationModal from './LocationModal'
 
 function GasBottle({location, dispatch, gasBottle, loading}) {
-  const {list, pagination, currentItem, modalVisible} = gasBottle
+  const {list, locationList, pagination, currentItem, modalVisible, locationModalVisible} = gasBottle
 
   const modalProps = {
     item: currentItem,
@@ -20,6 +21,22 @@ function GasBottle({location, dispatch, gasBottle, loading}) {
     onCancel () {
       dispatch({
         type: 'gasBottle/hideModal'
+      })
+    }
+  }
+
+  const localtionModalProps = {
+    locationList,
+    item: currentItem,
+    visible: locationModalVisible,
+    onOk (data) {
+      dispatch({
+        type: 'gasBottle/hideLocationModal'
+      })
+    },
+    onCancel () {
+      dispatch({
+        type: 'gasBottle/hideLocationModal'
       })
     }
   }
@@ -53,6 +70,24 @@ function GasBottle({location, dispatch, gasBottle, loading}) {
           currentItem: item
         }
       })
+    },
+    onShowLocation (item) {
+      if (location.query.orderId) {
+        dispatch({
+          type: 'gasBottle/findLocation',
+          payload: {
+            currentItem: item,
+            orderId: location.query.orderId
+          }
+        })
+      } else {
+        dispatch({
+          type: 'gasBottle/showLocationModal',
+          payload: {
+            currentItem: item
+          }
+        })
+      }
     }
   }
 
@@ -79,12 +114,14 @@ function GasBottle({location, dispatch, gasBottle, loading}) {
   }
 
   const ModalGen = () => <Modal {...modalProps} />
+  const LocationModalGen = () => <LocationModal {...localtionModalProps} />
 
   return (
     <div className="content-inner">
       <Filter {...filterProps} />
       <List {...listProps} />
       <ModalGen />
+      <LocationModalGen />
     </div>
   )
 }

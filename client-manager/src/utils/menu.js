@@ -27,4 +27,8 @@ module.exports = [{
   key: 'customer',
   name: '手机账号',
   icon: 'bars'
+}, {
+  key: 'order',
+  name: '销售记录',
+  icon: 'bars'
 }]

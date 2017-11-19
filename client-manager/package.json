@@ -45,6 +45,7 @@
     "glob": "^7.0.5",
     "mockjs": "^1.0.1-beta3",
     "rc-tween-one": "^1.0.0",
+    "react-bmap": "^1.0.52",
     "redbox-react": "^1.2.10",
     "watchjs": "^0.0.0"
   },

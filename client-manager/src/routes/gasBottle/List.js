@@ -4,9 +4,11 @@ import {DropOption} from '../../components'
 
 const confirm = Modal.confirm
 
-function list({loading, dataSource, pagination, onPageChange, onDeleteItem, onEditCheckTime, location}) {
+function list({loading, dataSource, pagination, onPageChange, onDeleteItem, onEditCheckTime, onShowLocation, location}) {
   const handleMenuClick = (record, e) => {
-    if (e.key === '2') {
+    if (e.key === '1') {
+      onShowLocation(record)
+    } else if (e.key === '2') {
       confirm({
         title: '您确定要删除这条记录吗?',
         onOk () {
@@ -72,7 +74,7 @@ function list({loading, dataSource, pagination, onPageChange, onDeleteItem, onEd
     width: 80,
     render: (text, record) => {
       return <DropOption onMenuClick={e => handleMenuClick(record, e)}
-                         menuOptions={[{key: '2', name: '删除'}, {key: '3', name: '更新下次检验时间'}]}/>
+                         menuOptions={[{key: '1', name: '位置'}, {key: '2', name: '删除'}, {key: '3', name: '更新下次检验时间'}]}/>
     }
   }]
 

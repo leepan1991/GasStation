@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.volunteer.dao.mapper.BottleLocationMapper">
+    <insert id="insert" parameterType="BottleLocation" useGeneratedKeys="true" keyProperty="id">
+        insert into t_bottle_location
+        (lng,lat,orderId,bottleCode)
+        values
+        (#{lng},#{lat},#{orderId},#{bottleCode})
+    </insert>
+
+    <select id="findByOrderIdAndBottleCode" resultType="BottleLocation">
+        select lng,lat from t_bottle_location where orderId=#{orderId} and bottleCode=#{bottleCode}
+    </select>
+</mapper>

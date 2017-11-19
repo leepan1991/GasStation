@@ -1,9 +1,11 @@
 package com.volunteer.service;
 
+import com.volunteer.dao.mapper.BottleLocationMapper;
 import com.volunteer.dao.mapper.GasBottleMapper;
 import com.volunteer.model.TableData;
 import com.volunteer.model.TableParameter;
 import com.volunteer.pojo.dto.GasBottleDTO;
+import com.volunteer.pojo.po.BottleLocation;
 import com.volunteer.pojo.po.GasBottle;
 import com.volunteer.pojo.po.OrderBottle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class GasBottleService extends AbstractService {
 
     @Autowired
     private GasBottleMapper gasBottleMapper;
+    @Autowired
+    private BottleLocationMapper bottleLocationMapper;
 
     public int updateNextCheckTime(int[] ids, String nextCheckDate) {
         return this.gasBottleMapper.updateNextCheckTime(ids, nextCheckDate);
@@ -96,5 +100,9 @@ public class GasBottleService extends AbstractService {
         orderBottle.setOrderId(gasBottle.getOrderId());
         orderBottle.setBottleCode(gasBottle.getCode());
         this.gasBottleMapper.updateDealWhenDelivery(orderBottle);
+    }
+
+    public List<BottleLocation> findLocation(String orderId, String bottleCode) {
+        return bottleLocationMapper.findByOrderIdAndBottleCode(orderId, bottleCode);
     }
 }

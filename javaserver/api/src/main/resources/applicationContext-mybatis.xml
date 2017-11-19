@@ -85,6 +85,9 @@
 			<tx:method name="set*" propagation="REQUIRED" />
 			<tx:method name="persist*" propagation="REQUIRED" />
 			<tx:method name="merge*" propagation="REQUIRED" />
+			<tx:method name="delivery*" propagation="REQUIRED" />
+			<tx:method name="storage*" propagation="REQUIRED" />
+			<tx:method name="record*" propagation="REQUIRED" />
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>

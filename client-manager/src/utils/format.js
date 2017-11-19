@@ -24,3 +24,20 @@ export function mediumFormat(value) {
   }
   return value
 }
+
+export function orderStatusFormat(value) {
+  if (0 === value) {
+    return '等待发货'
+  } else if (10 === value) {
+    return '已发货'
+  } else if (20 === value) {
+    return '已到货'
+  } else if (30 === value) {
+    return '已收回'
+  }
+  return value
+}
+
+export function timeFormat(value) {
+  return (new Date(value)).format('yyyy-MM-dd hh:mm:ss')
+}

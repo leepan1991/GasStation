@@ -71,4 +71,10 @@ public class GasBottleController extends AbstractController {
     public ResponseData listPaged(TableParameter parameter, GasBottle entity) {
         return ResponseData.success("OK", this.gasBottleService.listPaged(parameter, entity));
     }
+
+    @ResponseBody
+    @RequestMapping(value = "findLocation")
+    public ResponseData findLocation(String orderId, String bottleCode) {
+        return ResponseData.success("OK", this.gasBottleService.findLocation(orderId, bottleCode));
+    }
 }

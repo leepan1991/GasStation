@@ -10,8 +10,13 @@ import java.util.Date;
 public class Order extends AbstractStringEntity {
     private String unitName;
     private String unitAddress;
+    private String linkPhone;
+    private String linkUser;
     private int bottleNum;
-    private int status;
+    /**
+     * 状态 0等待发货 10已发货 20已到货 30已收回
+     */
+    private short status;
     private int orgId;
     private Date createTime;
 
@@ -39,11 +44,11 @@ public class Order extends AbstractStringEntity {
         this.bottleNum = bottleNum;
     }
 
-    public int getStatus() {
+    public short getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(short status) {
         this.status = status;
     }
 
@@ -63,4 +68,19 @@ public class Order extends AbstractStringEntity {
         this.createTime = createTime;
     }
 
+    public String getLinkPhone() {
+        return linkPhone;
+    }
+
+    public void setLinkPhone(String linkPhone) {
+        this.linkPhone = linkPhone;
+    }
+
+    public String getLinkUser() {
+        return linkUser;
+    }
+
+    public void setLinkUser(String linkUser) {
+        this.linkUser = linkUser;
+    }
 }

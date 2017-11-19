@@ -1,4 +1,4 @@
-import {query, remove, updateNextCheckTime} from '../services/gasBottle'
+import {query, remove, updateNextCheckTime, findLocation} from '../services/gasBottle'
 import {parse} from 'qs'
 
 export default {
@@ -7,8 +7,10 @@ export default {
 
   state: {
     list: [],
+    locationList: [],
     currentItem: {},
     modalVisible: false,
+    locationModalVisible: false,
     modalType: 'create',
     pagination: {
       showSizeChanger: true,
@@ -45,6 +47,22 @@ export default {
           payload: {
             list: data.data.data,
             pagination: data.data.page
+          }
+        })
+      }
+    },
+    *findLocation ({payload}, {call, put}) {
+      const data = yield call(findLocation, {
+        orderId: payload.orderId,
+        bottleCode: payload.currentItem.code
+      })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            locationModalVisible: true,
+            currentItem: payload.currentItem,
+            locationList: data.data
           }
         })
       }
@@ -90,6 +108,15 @@ export default {
     },
     hideModal (state) {
       return {...state, modalVisible: false}
+    },
+    showLocationModal (state, action) {
+      return {...state, ...action.payload, locationModalVisible: true}
+    },
+    hideLocationModal (state) {
+      return {...state, locationModalVisible: false}
+    },
+    updateState (state, action) {
+      return {...state, ...action.payload}
     }
   }
 }

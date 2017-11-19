@@ -3,6 +3,7 @@ package com.volunteer.dao.mapper;
 import com.volunteer.dao.abs.AbstractMapper;
 import com.volunteer.model.TableParameter;
 import com.volunteer.pojo.po.Order;
+import com.volunteer.pojo.po.OrderBottle;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface OrderMapper extends AbstractMapper {
     int count(@Param("entity") Order entity);
 
     List<Order> listAvailable(@Param("orgId") int orgId);
+
+    int insertOrderBottle(OrderBottle orderBottle);
 }
