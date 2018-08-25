@@ -56,12 +56,12 @@ const modal = ({
             }]
           })(<Input />)}
         </FormItem>
-        <FormItem label="电话号码" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('phone', {
-            initialValue: item.phone,
+        <FormItem label="用户名" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('userName', {
+            initialValue: item.userName,
             rules: [{
               required: true,
-              message: '电话号码未填写'
+              message: '用户名未填写'
             }]
           })(<Input />)}
         </FormItem>

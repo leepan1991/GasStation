@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react'
 import {Table, Modal} from 'antd'
 import {DropOption} from '../../components'
+import {mediumFormat} from '../../utils/format'
 
 const confirm = Modal.confirm
 
@@ -22,16 +23,19 @@ function list({loading, dataSource, pagination, onPageChange, onDeleteItem, onEd
 
   const columns = [{
     title: '气瓶登记码',
-    dataIndex: 'code',
-    key: 'code'
+    dataIndex: 'gasBottleRegCode',
+    key: 'gasBottleRegCode'
   }, {
     title: '瓶身码',
-    dataIndex: 'bottleCode',
-    key: 'bottleCode'
+    dataIndex: 'gasBottleCode',
+    key: 'gasBottleCode'
   }, {
     title: '充装介质',
-    dataIndex: 'mediumName',
-    key: 'mediumName'
+    dataIndex: 'medium',
+    key: 'medium',
+    render: (text) => {
+      return mediumFormat(text + '')
+    }
   }, {
     title: '制造单位',
     dataIndex: 'manufacturer',
@@ -46,12 +50,12 @@ function list({loading, dataSource, pagination, onPageChange, onDeleteItem, onEd
     key: 'workPressure'
   }, {
     title: '容积(L)',
-    dataIndex: 'volume',
-    key: 'volume'
+    dataIndex: 'gasBottleVolume',
+    key: 'gasBottleVolume'
   }, {
     title: '瓶重',
-    dataIndex: 'weight',
-    key: 'weight'
+    dataIndex: 'gasBottleWeight',
+    key: 'gasBottleWeight'
   }, {
     title: '设计壁厚(mm)',
     dataIndex: 'wallThickness',
@@ -89,7 +93,7 @@ function list({loading, dataSource, pagination, onPageChange, onDeleteItem, onEd
         onChange={onPageChange}
         pagination={pagination}
         simple
-        rowKey={record => record.code}
+        rowKey={record => record.id}
       />
     </div>
   )

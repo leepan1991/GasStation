@@ -20,7 +20,7 @@ module.exports = function (webpackConfig, env) {
     webpackConfig.babel.plugins.push('dev-expression')
     webpackConfig.entry = { index: './src/_index.js' }
     webpackConfig.output = {
-      publicPath: '/webmanager/'
+      publicPath: '/'
     }
   }
 

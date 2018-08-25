@@ -85,7 +85,7 @@ const modal = ({
             }]
           })(<Input />)}
         </FormItem>
-        <FormItem label="所属机构" hasFeedback {...formItemLayout}>
+        {/*<FormItem label="所属机构" hasFeedback {...formItemLayout}>
           {getFieldDecorator('orgId', {
             initialValue: item.orgId ? item.orgId + '' : undefined,
             rules: [{
@@ -99,7 +99,7 @@ const modal = ({
               })
             }
           </Select>)}
-        </FormItem>
+        </FormItem>*/}
       </Form>
     </Modal>
   )

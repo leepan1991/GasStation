@@ -24,20 +24,67 @@ function list({loading, dataSource, pagination, onPageChange, onDeleteItem, loca
       key: 'id'
     }, {
       title: '气瓶登记码',
-      dataIndex: 'code',
-      key: 'code'
+      dataIndex: 'gasBottleRegCode',
+      key: 'gasBottleRegCode'
+    }, {
+      title: '瓶身码',
+      dataIndex: 'gasBottleCode',
+      key: 'gasBottleCode'
     }, {
       title: '充装时间',
       dataIndex: 'fillingTime',
       key: 'fillingTime'
     }, {
       title: '充装工',
-      dataIndex: 'fillingerName',
-      key: 'fillingerName'
+      dataIndex: 'fillingCustomerName',
+      key: 'fillingCustomerName'
     }, {
       title: '充装前后检查员',
       dataIndex: 'inspector',
       key: 'inspector'
+    }, {
+      title: '充装介质',
+      dataIndex: 'medium',
+      key: 'medium',
+      render: (text) => {
+        return mediumFormat(text + '')
+      }
+    }, {
+      title: '制造单位',
+      dataIndex: 'manufacturer',
+      key: 'manufacturer'
+    }, {
+      title: '制造年月',
+      dataIndex: 'manufactureDate',
+      key: 'manufactureDate'
+    }, {
+      title: '公称工作压力(Mpa)',
+      dataIndex: 'workPressure',
+      key: 'workPressure'
+    }, {
+      title: '容积(L)',
+      dataIndex: 'gasBottleVolume',
+      key: 'gasBottleVolume'
+    }, {
+      title: '瓶重',
+      dataIndex: 'gasBottleWeight',
+      key: 'gasBottleWeight'
+    }, {
+      title: '设计壁厚(mm)',
+      dataIndex: 'wallThickness',
+      key: 'wallThickness'
+    }, {
+      title: '最近一次检验日期',
+      dataIndex: 'lastCheckTime',
+      key: 'lastCheckTime'
+    }, {
+      title: '下次检验日期',
+      dataIndex: 'nextCheckTime',
+      key: 'nextCheckTime'
+    }, {
+      title: '报废日期',
+      dataIndex: 'invalidatedDate',
+      key: 'invalidatedDate'
     }, {
       title: '操作',
       key: 'operation',

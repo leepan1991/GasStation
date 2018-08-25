@@ -56,8 +56,8 @@ const Filter = ({
       <Row gutter={24}>
         <Col span="8">
           <FormItem label="气瓶登记码：" {...formItemLayout}>
-            {getFieldDecorator('code', {
-              initialValue: item.code,
+            {getFieldDecorator('gasBottleRegCode', {
+              initialValue: item.gasBottleRegCode,
               rules: [{
                 required: false
               }]

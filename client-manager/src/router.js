@@ -78,7 +78,7 @@ const Routers = function ({ history, app }) {
           }, 'gasFillingLog')
         }
       }, {
-        path: 'employee',
+        path: 'customer',
         getComponent (nextState, cb) {
           require.ensure([], require => {
             registerModel(app, require('./models/employee'))

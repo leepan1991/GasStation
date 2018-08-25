@@ -24,9 +24,9 @@ function list({loading, dataSource, pagination, onPageChange, onDeleteItem, onEd
     dataIndex: 'name',
     key: 'name'
   }, {
-    title: '电话号码',
-    dataIndex: 'phone',
-    key: 'phone'
+    title: '用户名',
+    dataIndex: 'userName',
+    key: 'userName'
   }, {
     title: '操作',
     key: 'operation',
