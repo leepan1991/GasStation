@@ -3,7 +3,6 @@ import {PageLoading} from '@ant-design/pro-layout';
 import type {RunTimeLayoutConfig} from 'umi';
 import {history} from 'umi';
 import RightContent from '@/components/RightContent';
-import Footer from '@/components/Footer';
 import {loginInfo as queryCurrentUser} from './services/auth';
 import {LoginInfo} from "@/define/data";
 
@@ -52,10 +51,10 @@ export const layout: RunTimeLayoutConfig = ({initialState}) => {
   return {
     rightContentRender: () => <RightContent/>,
     disableContentMargin: false,
-    waterMarkProps: {
-      content: initialState?.currentUser?.name,
-    },
-    footerRender: () => <Footer/>,
+    // waterMarkProps: {
+    //   content: initialState?.currentUser?.name,
+    // },
+    // footerRender: () => <Footer/>,
     onPageChange: () => {
       const {location} = history;
       // 如果没有登录，重定向到 login

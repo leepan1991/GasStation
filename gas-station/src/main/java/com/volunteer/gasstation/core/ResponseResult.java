@@ -24,6 +24,12 @@ public class ResponseResult<T> {
         this.msg = msg;
     }
 
+    public ResponseResult(String msg, String action) {
+        this.code = 0;
+        this.msg = msg;
+        this.action = action;
+    }
+
     public ResponseResult(String msg) {
         this.code = 0;
         this.msg = msg;

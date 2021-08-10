@@ -7,7 +7,7 @@ interface UserInfo {
   createTime: string
 }
 
-interface UserListParams extends BaseListParams{
+interface UserListParams extends BaseListParams {
   name?: string;
   username?: string;
 }
