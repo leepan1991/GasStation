@@ -22,3 +22,17 @@ export async function queryUserList(params: UserListParams): Promise<any> {
     };
   });
 }
+
+export async function saveUser(params: UserInfo): Promise<any> {
+  return request<PageInfo<UserInfo>>('/mgr/system/user', {
+    method: 'POST',
+    data: params
+  });
+}
+
+export async function updateUser(id:number, params: UserInfo): Promise<any> {
+  return request<PageInfo<UserInfo>>(`/mgr/system/user/${id}`, {
+    method: 'PUT',
+    data: params
+  });
+}
