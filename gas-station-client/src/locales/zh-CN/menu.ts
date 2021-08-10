@@ -5,6 +5,7 @@ export default {
   'menu.system': '系统管理',
   'menu.system.user': '用户管理',
   'menu.system.role': '角色管理',
+  'menu.system.resource': '资源管理',
   'menu.gasBottle': '气瓶管理',
   'menu.gasBottleEdit': '气瓶编辑',
   'menu.exception.403': '403',

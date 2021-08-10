@@ -9,13 +9,20 @@ import com.volunteer.gasstation.core.PageResult;
 import com.volunteer.gasstation.core.ResponseResult;
 import com.volunteer.gasstation.manager.system.converter.UserConverter;
 import com.volunteer.gasstation.manager.system.dto.UserDTO;
+import com.volunteer.gasstation.manager.system.dto.UserGrantDTO;
 import com.volunteer.gasstation.manager.system.dto.UserListRequestDTO;
 import com.volunteer.gasstation.manager.system.entity.User;
+import com.volunteer.gasstation.manager.system.entity.UserRole;
+import com.volunteer.gasstation.manager.system.enums.UserStatusEnum;
+import com.volunteer.gasstation.manager.system.service.IUserRoleService;
 import com.volunteer.gasstation.manager.system.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -30,9 +37,11 @@ import java.time.LocalDateTime;
 public class UserController extends BaseController {
 
     private final IUserService userService;
+    private final IUserRoleService userRoleService;
 
-    public UserController(IUserService userService) {
+    public UserController(IUserService userService, IUserRoleService userRoleService) {
         this.userService = userService;
+        this.userRoleService = userRoleService;
     }
 
     @GetMapping
@@ -62,8 +71,30 @@ public class UserController extends BaseController {
 
     @DeleteMapping(value = "{id}")
     public ResponseResult deleteById(@PathVariable("id") Long id) {
-        userService.removeById(id);
+        User user = new User();
+        user.setId(id);
+        user.setStatus(UserStatusEnum.DELETED.intValue());
+        userService.updateById(user);
         return new ResponseResult("删除成功");
+    }
+
+    @PutMapping(value = "{id}/grant")
+    public ResponseResult grantRole(@PathVariable("id") Long id, @RequestBody UserGrantDTO record) {
+        LambdaQueryWrapper<UserRole> queryWrapper = new QueryWrapper<UserRole>().lambda();
+        queryWrapper.eq(UserRole::getUserId, id);
+        userRoleService.remove(queryWrapper);
+
+        if (!CollectionUtils.isEmpty(record.getRoleIdList())) {
+            List<UserRole> userRoleList = new ArrayList<>();
+            for (Long roleId : record.getRoleIdList()) {
+                UserRole userRole = new UserRole();
+                userRole.setUserId(id);
+                userRole.setRoleId(roleId);
+                userRoleList.add(userRole);
+            }
+            userRoleService.saveBatch(userRoleList);
+        }
+        return new ResponseResult("授权成功");
     }
 }
 

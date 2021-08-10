@@ -10,6 +10,10 @@
     name: 'role',
     path: '/system/role',
     component: './system/role'
+  }, {
+    name: 'resource',
+    path: '/system/resource',
+    component: './system/resource'
   }]
 }, {
   name: 'gasBottle',

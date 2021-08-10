@@ -1,6 +1,6 @@
 package com.volunteer.gasstation.manager.system.service;
 
-import com.volunteer.gasstation.manager.system.entity.Role;
+import com.volunteer.gasstation.manager.system.entity.Resource;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author huoyao
  * @since 2021-08-10
  */
-public interface IRoleService extends IService<Role> {
+public interface IResourceService extends IService<Resource> {
 
 }

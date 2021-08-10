@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author huoyao
- * @since 2021-08-08
+ * @since 2021-08-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,9 +35,6 @@ public class User implements Serializable {
     private String phone;
 
     private Integer status;
-
-    @TableField("role_ids")
-    private String roleIds;
 
     @TableField("create_time")
     private LocalDateTime createTime;

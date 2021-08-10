@@ -1,6 +1,6 @@
 package com.volunteer.gasstation.manager.system.mapper;
 
-import com.volunteer.gasstation.manager.system.entity.Role;
+import com.volunteer.gasstation.manager.system.entity.Resource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author huoyao
  * @since 2021-08-10
  */
-public interface RoleMapper extends BaseMapper<Role> {
+public interface ResourceMapper extends BaseMapper<Resource> {
 
 }

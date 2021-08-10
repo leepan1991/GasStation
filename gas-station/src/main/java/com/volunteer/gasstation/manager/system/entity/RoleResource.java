@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,17 +18,18 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("auth_role")
-public class Role implements Serializable {
+@TableName("auth_role_resource")
+public class RoleResource implements Serializable {
 
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private String name;
+    @TableField("role_id")
+    private Long roleId;
 
-    @TableField("create_time")
-    private LocalDateTime createTime;
+    @TableField("resource_id")
+    private Long resourceId;
 
 
 }
