@@ -15,7 +15,7 @@ const UserForm: React.FC<UserFormProps> = ({record, onClose}) => {
       if (res.code === 0) {
         onClose(true);
       }
-      return res.data === 0;
+      return res.code === 0;
     });
   }
 
@@ -29,20 +29,21 @@ const UserForm: React.FC<UserFormProps> = ({record, onClose}) => {
         onCancel: () => onClose(false)
       }}
       onFinish={handleOk}>
-      <ProFormText name="name" label="姓名" rules={[{
-        required: true,
-        message: '姓名必填'
-      }]}/>
-      <ProFormText name="username" label="账号" rules={[{
+      <ProFormText name="username" label="账号" fieldProps={{maxLength: 16}} rules={[{
         required: true,
         message: '账号必填'
       }]}/>
       {
-        !record && <ProFormText.Password name="password" label="密码" rules={[{
+        !record && <ProFormText.Password name="password" label="密码" fieldProps={{maxLength: 16}} rules={[{
           required: true,
           message: '密码必填'
         }]}/>
       }
+      <ProFormText name="name" label="姓名" fieldProps={{maxLength: 16}} rules={[{
+        required: true,
+        message: '姓名必填'
+      }]}/>
+      <ProFormText name="phone" label="手机号码" fieldProps={{maxLength: 11}} />
     </ModalForm>
   );
 }

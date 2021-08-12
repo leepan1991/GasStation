@@ -15,4 +15,5 @@ public class ResourceDTO {
     private String code;
     private String name;
     private List<ResourceDTO> children;
+    private Boolean selected;
 }

@@ -15,7 +15,7 @@ public interface ResourceConverter {
     ResourceConverter INSTANCE = Mappers.getMapper(ResourceConverter.class);
 
     /**
-     * ResourceDTO转Resource
+     * Resource转ResourceDTO
      *
      * @param resource
      * @return
@@ -29,4 +29,5 @@ public interface ResourceConverter {
      * @return
      */
     List<ResourceDTO> mapList(List<Resource> list);
+
 }

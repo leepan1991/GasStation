@@ -5,21 +5,26 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.volunteer.gasstation.core.BaseController;
 import com.volunteer.gasstation.core.ResponseResult;
+import com.volunteer.gasstation.manager.system.converter.ResourceConverter;
 import com.volunteer.gasstation.manager.system.converter.RoleConverter;
+import com.volunteer.gasstation.manager.system.dto.ResourceDTO;
 import com.volunteer.gasstation.manager.system.dto.RoleDTO;
 import com.volunteer.gasstation.manager.system.dto.RoleGrantDTO;
 import com.volunteer.gasstation.manager.system.entity.Role;
 import com.volunteer.gasstation.manager.system.entity.RoleResource;
 import com.volunteer.gasstation.manager.system.entity.UserRole;
+import com.volunteer.gasstation.manager.system.service.IResourceService;
 import com.volunteer.gasstation.manager.system.service.IRoleResourceService;
 import com.volunteer.gasstation.manager.system.service.IRoleService;
 import com.volunteer.gasstation.manager.system.service.IUserRoleService;
+import com.volunteer.gasstation.utils.ResourceUtil;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -36,10 +41,13 @@ public class RoleController extends BaseController {
     private IRoleService roleService;
     private IUserRoleService userRoleService;
     private IRoleResourceService roleResourceService;
+    private IResourceService resourceService;
 
-    public RoleController(IRoleService roleService, IUserRoleService userRoleService) {
+    public RoleController(IRoleService roleService, IUserRoleService userRoleService, IRoleResourceService roleResourceService, IResourceService resourceService) {
         this.roleService = roleService;
         this.userRoleService = userRoleService;
+        this.roleResourceService = roleResourceService;
+        this.resourceService = resourceService;
     }
 
     @GetMapping
@@ -52,7 +60,7 @@ public class RoleController extends BaseController {
         Role role = RoleConverter.INSTANCE.map(record);
         role.setCreateTime(LocalDateTime.now());
         roleService.save(role);
-        return new ResponseResult("添加成功");
+        return new ResponseResult("添加成功", ResponseResult.ACTION_TOAST);
     }
 
     @PutMapping(value = "{id}")
@@ -60,7 +68,7 @@ public class RoleController extends BaseController {
         Role role = RoleConverter.INSTANCE.map(record);
         role.setId(id);
         roleService.updateById(role);
-        return new ResponseResult("更新成功");
+        return new ResponseResult("更新成功", ResponseResult.ACTION_TOAST);
     }
 
     @DeleteMapping(value = "{id}")
@@ -69,7 +77,24 @@ public class RoleController extends BaseController {
         LambdaQueryWrapper<UserRole> queryWrapper = new QueryWrapper<UserRole>().lambda();
         queryWrapper.eq(UserRole::getRoleId, id);
         userRoleService.remove(queryWrapper);
-        return new ResponseResult("删除成功");
+        return new ResponseResult("删除成功", ResponseResult.ACTION_TOAST);
+    }
+
+    @GetMapping(value = "{id}/grantInfo")
+    public ResponseResult<List<? extends ResourceDTO>> grantInfo(@PathVariable("id") Long id) {
+        LambdaQueryWrapper<RoleResource> deleteWrapper = new QueryWrapper<RoleResource>().lambda();
+        deleteWrapper.eq(RoleResource::getRoleId, id);
+        List<RoleResource> roleResourceList = roleResourceService.list(deleteWrapper);
+
+        List<ResourceDTO> resourceList = ResourceConverter.INSTANCE.mapList(resourceService.list());
+        if (!CollectionUtils.isEmpty(roleResourceList)) {
+            List<Long> resourceIdList = roleResourceList.stream().map(RoleResource::getResourceId).collect(Collectors.toList());
+            for (ResourceDTO resource : resourceList) {
+                resource.setSelected(resourceIdList.contains(resource.getId()));
+            }
+        }
+
+        return new ResponseResult<>(ResourceUtil.loop(resourceList));
     }
 
     @PutMapping(value = "{id}/grant")
@@ -88,7 +113,7 @@ public class RoleController extends BaseController {
             }
             roleResourceService.saveBatch(roleResourceList);
         }
-        return new ResponseResult("授权成功");
+        return new ResponseResult("授权成功", ResponseResult.ACTION_TOAST);
     }
 }
 

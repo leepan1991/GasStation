@@ -1,4 +1,4 @@
-interface RoleInfo {
+export interface RoleInfo {
   id: number,
   name: string
   createTime: string

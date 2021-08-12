@@ -8,6 +8,7 @@ export interface LoginInfo {
   id: number;
   name: string;
   username: string;
+  resourceCodeList: string[]
 }
 
 export interface PageInfo<T> {

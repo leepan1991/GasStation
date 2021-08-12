@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import {ResourceInfo} from "@/pages/system/resource/data";
 
 export async function queryResourceList(): Promise<any> {
   return request<ResourceInfo[]>('/mgr/system/resource', {

@@ -51,7 +51,7 @@ public class GeneratorCodeConfig {
 
         // 包配置
 //        PackageConfig pc = new PackageConfig.Builder("com.volunteer", scanner("模块名称"))
-        PackageConfig pc = new PackageConfig.Builder("com.volunteer.gasstation.manager", "system")
+        PackageConfig pc = new PackageConfig.Builder("com.volunteer.gasstation.manager", "biz")
                 .controller("controller")
                 .mapper("mapper")
                 .entity("entity")
@@ -64,8 +64,8 @@ public class GeneratorCodeConfig {
 
         //策略
         StrategyConfig sc = new StrategyConfig.Builder()
-                .addTablePrefix("auth_")
-                .likeTable(new LikeTable("auth_%"))
+                .addTablePrefix("biz_")
+                .likeTable(new LikeTable("biz_%"))
                 .entityBuilder()
                 .naming(NamingStrategy.underline_to_camel)
                 .columnNaming(NamingStrategy.underline_to_camel)

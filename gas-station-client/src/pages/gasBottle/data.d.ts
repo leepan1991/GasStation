@@ -1,9 +1,9 @@
 import {BaseListParams} from "@/define/data";
 
-interface GasBottleInfoListParams extends BaseListParams {
+export interface GasBottleInfoListParams extends BaseListParams {
   qpno?: number
 }
 
-interface GasBottleInfo {
+export interface GasBottleInfo {
   id: number
 }
