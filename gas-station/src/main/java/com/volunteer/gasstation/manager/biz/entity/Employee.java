@@ -1,10 +1,11 @@
-package com.volunteer.gasstation.manager.system.entity;
+package com.volunteer.gasstation.manager.biz.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,18 +19,23 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("auth_role_resource")
-public class RoleResource implements Serializable {
+@TableName("biz_employee")
+public class Employee implements Serializable {
 
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @TableField("role_id")
-    private Long roleId;
+    private String name;
 
-    @TableField("resource_id")
-    private Long resourceId;
+    private String phone;
+
+    private String password;
+
+    private Integer status;
+
+    @TableField("create_time")
+    private LocalDateTime createTime;
 
 
 }

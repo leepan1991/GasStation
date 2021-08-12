@@ -1,10 +1,14 @@
 package com.volunteer.gasstation.manager.system.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.volunteer.gasstation.core.BaseController;
 import com.volunteer.gasstation.core.ResponseResult;
 import com.volunteer.gasstation.manager.system.converter.ResourceConverter;
 import com.volunteer.gasstation.manager.system.dto.ResourceDTO;
+import com.volunteer.gasstation.manager.system.entity.Resource;
+import com.volunteer.gasstation.manager.system.entity.User;
 import com.volunteer.gasstation.manager.system.service.IResourceService;
 import com.volunteer.gasstation.utils.ResourceUtil;
 import org.springframework.util.CollectionUtils;
@@ -32,7 +36,9 @@ public class ResourceController extends BaseController {
 
     @GetMapping
     public ResponseResult<List<ResourceDTO>> list() {
-        List<ResourceDTO> resourceList = ResourceConverter.INSTANCE.mapList(resourceService.list());
+        LambdaQueryWrapper<Resource> queryWrapper = new QueryWrapper<Resource>().lambda();
+        queryWrapper.orderByAsc(Resource::getSequence);
+        List<ResourceDTO> resourceList = ResourceConverter.INSTANCE.mapList(resourceService.list(queryWrapper));
         return new ResponseResult(ResourceUtil.loop(resourceList));
     }
 

@@ -19,6 +19,12 @@
     access: 'normalRouteFilter',
   }]
 }, {
+  name: 'gasMedium',
+  icon: 'smile',
+  path: '/gasMedium',
+  component: './gasMedium',
+  access: 'normalRouteFilter',
+}, {
   name: 'gasBottle',
   icon: 'smile',
   path: '/gasBottle/list',
@@ -31,6 +37,12 @@
   hideInMenu: true,
   path: '/gasBottle/edit/:id',
   component: './gasBottle/edit',
+  access: 'normalRouteFilter',
+}, {
+  name: 'employee',
+  icon: 'smile',
+  path: '/employee',
+  component: './employee',
   access: 'normalRouteFilter',
 }, {
   path: '/user',

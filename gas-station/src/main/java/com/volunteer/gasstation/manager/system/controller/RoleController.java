@@ -10,6 +10,7 @@ import com.volunteer.gasstation.manager.system.converter.RoleConverter;
 import com.volunteer.gasstation.manager.system.dto.ResourceDTO;
 import com.volunteer.gasstation.manager.system.dto.RoleDTO;
 import com.volunteer.gasstation.manager.system.dto.RoleGrantDTO;
+import com.volunteer.gasstation.manager.system.entity.Resource;
 import com.volunteer.gasstation.manager.system.entity.Role;
 import com.volunteer.gasstation.manager.system.entity.RoleResource;
 import com.volunteer.gasstation.manager.system.entity.UserRole;
@@ -82,11 +83,13 @@ public class RoleController extends BaseController {
 
     @GetMapping(value = "{id}/grantInfo")
     public ResponseResult<List<? extends ResourceDTO>> grantInfo(@PathVariable("id") Long id) {
-        LambdaQueryWrapper<RoleResource> deleteWrapper = new QueryWrapper<RoleResource>().lambda();
-        deleteWrapper.eq(RoleResource::getRoleId, id);
-        List<RoleResource> roleResourceList = roleResourceService.list(deleteWrapper);
+        LambdaQueryWrapper<RoleResource> queryWrapper = new QueryWrapper<RoleResource>().lambda();
+        queryWrapper.eq(RoleResource::getRoleId, id);
+        List<RoleResource> roleResourceList = roleResourceService.list(queryWrapper);
 
-        List<ResourceDTO> resourceList = ResourceConverter.INSTANCE.mapList(resourceService.list());
+        LambdaQueryWrapper<Resource> resWrapper = new QueryWrapper<Resource>().lambda();
+        resWrapper.orderByAsc(Resource::getSequence);
+        List<ResourceDTO> resourceList = ResourceConverter.INSTANCE.mapList(resourceService.list(resWrapper));
         if (!CollectionUtils.isEmpty(roleResourceList)) {
             List<Long> resourceIdList = roleResourceList.stream().map(RoleResource::getResourceId).collect(Collectors.toList());
             for (ResourceDTO resource : resourceList) {

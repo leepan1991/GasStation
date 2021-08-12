@@ -1,6 +1,6 @@
 package com.volunteer.gasstation.manager.biz.mapper;
 
-import com.volunteer.gasstation.manager.biz.entity.GasBottle;
+import com.volunteer.gasstation.manager.biz.entity.GasMedium;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author huoyao
  * @since 2021-08-12
  */
-public interface GasBottleMapper extends BaseMapper<GasBottle> {
+public interface GasMediumMapper extends BaseMapper<GasMedium> {
 
 }

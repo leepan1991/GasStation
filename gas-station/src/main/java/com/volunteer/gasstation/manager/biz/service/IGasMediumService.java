@@ -1,6 +1,6 @@
 package com.volunteer.gasstation.manager.biz.service;
 
-import com.volunteer.gasstation.manager.biz.entity.GasBottle;
+import com.volunteer.gasstation.manager.biz.entity.GasMedium;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author huoyao
  * @since 2021-08-12
  */
-public interface IGasBottleService extends IService<GasBottle> {
+public interface IGasMediumService extends IService<GasMedium> {
 
 }

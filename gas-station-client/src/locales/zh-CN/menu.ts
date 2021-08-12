@@ -6,10 +6,11 @@ export default {
   'menu.system.user': '用户管理',
   'menu.system.role': '角色管理',
   'menu.system.resource': '资源管理',
+  'menu.employee': '手机账号',
+  'menu.gasMedium': '介质管理',
   'menu.gasBottle': '气瓶管理',
   'menu.gasBottleEdit': '气瓶编辑',
   'menu.exception.403': '403',
   'menu.exception.404': '404',
   'menu.exception.500': '500',
-  'menu.list.table-list': '500',
 };
