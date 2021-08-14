@@ -2,7 +2,7 @@ package com.volunteer.gasstation.api.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.volunteer.gasstation.api.TokenManager;
+import com.volunteer.gasstation.core.TokenManager;
 import com.volunteer.gasstation.api.dto.ApiLoginInfoDTO;
 import com.volunteer.gasstation.api.dto.ApiLoginRequestDTO;
 import com.volunteer.gasstation.core.ResponseResult;

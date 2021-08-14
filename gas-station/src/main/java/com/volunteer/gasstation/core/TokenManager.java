@@ -1,4 +1,4 @@
-package com.volunteer.gasstation.api;
+package com.volunteer.gasstation.core;
 
 import com.volunteer.gasstation.api.dto.ApiLoginInfoDTO;
 import org.springframework.stereotype.Service;
