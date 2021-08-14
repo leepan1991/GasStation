@@ -20,12 +20,24 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("biz_gas_bottle")
-public class GasBottle implements Serializable {
+@TableName("biz_gas_bottle_fill_log")
+public class GasBottleFillLog implements Serializable {
 
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+
+    @TableField("gas_bottle_id")
+    private Long gasBottleId;
+
+    @TableField("employee_id")
+    private Long employeeId;
+
+    /**
+     * 充装时间
+     */
+    @TableField("fill_time")
+    private LocalDateTime fillTime;
 
     /**
      * 气瓶编号(自编号)[1]QPNO

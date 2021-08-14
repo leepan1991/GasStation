@@ -5,7 +5,7 @@ import {Card} from "antd";
 import {history} from 'umi';
 import {queryById, updateById} from "@/pages/gasBottle/service";
 import {GasBottleInfo} from "@/pages/gasBottle/data";
-import {queryGasMediumList, useGasMediumInfoList} from "@/pages/gasMedium/service";
+import {queryGasMediumList} from "@/pages/gasMedium/service";
 import {GasMediumInfo} from "@/pages/gasMedium/data";
 
 interface GasBottleFormProps {

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author huoyao
- * @since 2021-08-12
+ * @since 2021-08-14
  */
 public interface GasMediumMapper extends BaseMapper<GasMedium> {
 

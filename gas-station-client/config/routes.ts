@@ -1,6 +1,6 @@
 ﻿export default [{
   name: 'system',
-  icon: 'smile',
+  icon: 'setting',
   path: '/system',
   routes: [{
     name: 'user',
@@ -20,27 +20,33 @@
   }]
 }, {
   name: 'gasMedium',
-  icon: 'smile',
+  icon: 'table',
   path: '/gasMedium',
   component: './gasMedium',
   access: 'normalRouteFilter',
 }, {
   name: 'gasBottle',
-  icon: 'smile',
+  icon: 'table',
   path: '/gasBottle/list',
   component: './gasBottle/list',
   access: 'normalRouteFilter',
 }, {
   name: 'gasBottleEdit',
   auth: 'gasBottle',
-  icon: 'smile',
+  icon: 'table',
   hideInMenu: true,
   path: '/gasBottle/edit/:id',
   component: './gasBottle/edit',
   access: 'normalRouteFilter',
 }, {
+  name: 'gasBottleFillLog',
+  icon: 'table',
+  path: '/gasBottleFillLog',
+  component: './gasBottleFillLog',
+  access: 'normalRouteFilter',
+}, {
   name: 'employee',
-  icon: 'smile',
+  icon: 'table',
   path: '/employee',
   component: './employee',
   access: 'normalRouteFilter',
@@ -60,7 +66,7 @@
 }, {
   path: '/welcome',
   name: 'welcome',
-  icon: 'smile',
+  icon: 'table',
   component: './Welcome',
   hideInMenu: true
 }, {

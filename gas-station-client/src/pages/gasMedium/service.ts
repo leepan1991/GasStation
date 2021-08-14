@@ -1,6 +1,5 @@
 import request, {Result} from '@/utils/request';
 import {GasMediumInfo} from "@/pages/gasMedium/data";
-import {useEffect, useState} from "react";
 
 export async function queryGasMediumList(): Promise<any> {
   return request<GasMediumInfo[]>('/mgr/biz/gasMedium', {
@@ -39,17 +38,3 @@ export async function deleteGasMedium(id: number): Promise<Result<undefined>> {
     method: 'DELETE'
   });
 }
-
-export const useGasMediumInfoList = (gasBottleId: number): [GasMediumInfo | undefined, boolean] => {
-  const [loading, setLoading] = useState(true);
-  const [gasMediumList, setGasMediumList] = useState<GasMediumInfo>();
-  useEffect(() => {
-    setLoading(true);
-    (async () => {
-      const result = await queryGasMediumList();
-      setGasMediumList(result.data);
-      setLoading(false);
-    })();
-  }, [gasBottleId]);
-  return [gasMediumList, loading];
-};

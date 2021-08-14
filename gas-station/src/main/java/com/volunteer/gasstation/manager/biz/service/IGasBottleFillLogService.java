@@ -1,6 +1,6 @@
 package com.volunteer.gasstation.manager.biz.service;
 
-import com.volunteer.gasstation.manager.biz.entity.Employee;
+import com.volunteer.gasstation.manager.biz.entity.GasBottleFillLog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author huoyao
  * @since 2021-08-14
  */
-public interface IEmployeeService extends IService<Employee> {
+public interface IGasBottleFillLogService extends IService<GasBottleFillLog> {
 
 }

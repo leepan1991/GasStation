@@ -9,6 +9,7 @@ export default {
   'menu.employee': '手机账号',
   'menu.gasMedium': '介质管理',
   'menu.gasBottle': '气瓶管理',
+  'menu.gasBottleFillLog': '充装记录',
   'menu.gasBottleEdit': '气瓶编辑',
   'menu.exception.403': '403',
   'menu.exception.404': '404',
