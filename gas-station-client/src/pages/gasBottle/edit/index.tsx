@@ -1,10 +1,12 @@
 import React from "react";
 import {FooterToolbar, PageContainer} from "@ant-design/pro-layout";
-import ProForm, {ProFormDatePicker, ProFormText,} from '@ant-design/pro-form';
+import ProForm, {ProFormDatePicker, ProFormSelect, ProFormText,} from '@ant-design/pro-form';
 import {Card} from "antd";
 import {history} from 'umi';
 import {queryById, updateById} from "@/pages/gasBottle/service";
 import {GasBottleInfo} from "@/pages/gasBottle/data";
+import {queryGasMediumList, useGasMediumInfoList} from "@/pages/gasMedium/service";
+import {GasMediumInfo} from "@/pages/gasMedium/data";
 
 interface GasBottleFormProps {
   match: any
@@ -43,9 +45,13 @@ const GasBottleEdit: React.FC<GasBottleFormProps> = (props) => {
             <ProFormText width="sm" name="qppz" label="气瓶品种" rules={[{
               required: true, message: '必填'
             }]}/>
-            <ProFormText width="sm" name="ccjz" label="充装介质" rules={[{
+            <ProFormSelect width="sm" name="ccjz" label="充装介质" rules={[{
               required: true, message: '必填'
-            }]}/>
+            }]} request={() => queryGasMediumList().then(res => {
+              return res.data.map((medium: GasMediumInfo) => {
+                return {label: medium.name, value: medium.code};
+              })
+            })}/>
             <ProFormText width="sm" name="qprj" label="充装容积" rules={[{
               required: true, message: '必填'
             }]}/>

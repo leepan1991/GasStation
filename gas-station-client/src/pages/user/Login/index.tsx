@@ -3,7 +3,6 @@ import {message} from 'antd';
 import React, {useState} from 'react';
 import ProForm, {ProFormText} from '@ant-design/pro-form';
 import {FormattedMessage, history, Link, useIntl, useModel} from 'umi';
-import Footer from '@/components/Footer';
 import {login} from '@/services/auth';
 
 import styles from './index.less';
@@ -141,7 +140,6 @@ const Login: React.FC = () => {
           </ProForm>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 };
