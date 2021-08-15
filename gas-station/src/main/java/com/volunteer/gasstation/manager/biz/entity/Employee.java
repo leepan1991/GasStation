@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author huoyao
- * @since 2021-08-14
+ * @since 2021-08-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -33,6 +33,11 @@ public class Employee implements Serializable {
     private String password;
 
     private Integer status;
+
+    /**
+     * 1充装员 2质检员 3admin
+     */
+    private Integer type;
 
     @TableField("create_time")
     private LocalDateTime createTime;

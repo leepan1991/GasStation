@@ -1,5 +1,5 @@
 import React from "react";
-import {ModalForm, ProFormText,} from '@ant-design/pro-form';
+import {ModalForm, ProFormText} from '@ant-design/pro-form';
 import {UserInfo} from "@/pages/system/user/data";
 import {saveUser, updateUser} from "@/pages/system/user/service";
 

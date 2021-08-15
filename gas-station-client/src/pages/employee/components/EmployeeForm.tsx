@@ -1,5 +1,5 @@
 import React from "react";
-import {ModalForm, ProFormText,} from '@ant-design/pro-form';
+import {ModalForm, ProFormSelect, ProFormText,} from '@ant-design/pro-form';
 import {saveEmployee, updateEmployee} from "@/pages/employee/service";
 import {EmployeeInfo} from "@/pages/employee/data";
 
@@ -37,6 +37,21 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({record, onClose}) => {
         required: true,
         message: '手机号码必填'
       }]}/>
+      <ProFormSelect name="type" label="类型" rules={[{
+        required: true,
+        message: '手机号码必填'
+      }]} request={async () => {
+        return [{
+          label: '充装员',
+          value: 1
+        }, {
+          label: '质检员',
+          value: 2
+        }, {
+          label: '管理员',
+          value: 3
+        }];
+      }}/>
       <ProFormText.Password name="password" label="密码" fieldProps={{maxLength: 16}} rules={[{
         required: true,
         message: '密码必填'

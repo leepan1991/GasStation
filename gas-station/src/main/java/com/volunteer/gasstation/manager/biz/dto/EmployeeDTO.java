@@ -8,12 +8,12 @@ import lombok.Data;
 @Data
 public class EmployeeDTO {
     private Long id;
-
     private String name;
-
     private String phone;
-
     private String password;
-
+    /**
+     * 1充装员 2质检员 3admin
+     */
+    private Integer type;
     private String createTime;
 }

@@ -1,7 +1,6 @@
 import request, {Result} from '@/utils/request';
 import {PageInfo} from "@/define/data";
 import {GasBottleInfo, GasBottleInfoListParams} from "@/pages/gasBottle/data";
-import {useEffect, useState} from "react";
 
 export async function queryGasBottleList(params: GasBottleInfoListParams): Promise<any> {
   return request<PageInfo<GasBottleInfo>>('/mgr/biz/gasBottle', {
@@ -42,19 +41,3 @@ export async function deleteById(id: number): Promise<Result<any>> {
     method: 'DELETE'
   });
 }
-
-export const useGasBottleInfo = (gasBottleId: number): [GasBottleInfo | undefined, boolean] => {
-  const [loading, setLoading] = useState(true);
-  const [gasBottleInfo, setGasBottleInfo] = useState<GasBottleInfo>();
-  useEffect(() => {
-    setLoading(true);
-    (async () => {
-      const result = await queryById(gasBottleId);
-      if (result.code == 0) {
-        setGasBottleInfo(result.data);
-      }
-      setLoading(false);
-    })();
-  }, [gasBottleId]);
-  return [gasBottleInfo, loading];
-};

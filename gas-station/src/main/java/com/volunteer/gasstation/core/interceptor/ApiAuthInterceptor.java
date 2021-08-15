@@ -1,6 +1,7 @@
 package com.volunteer.gasstation.core.interceptor;
 
 import com.volunteer.gasstation.api.dto.ApiLoginInfoDTO;
+import com.volunteer.gasstation.core.SecurityUtil;
 import com.volunteer.gasstation.core.TokenManager;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,16 +22,16 @@ public class ApiAuthInterceptor extends BaseAuthInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
         ApiLoginInfoDTO loginInfo = tokenManager.get(token);
-        try {
-            if (null == loginInfo) {
-                error(response, "未登录");
-                return false;
-            }
-        } catch (Exception e) {
-            error(response, e.getMessage());
-            log.error("ApiAuthInterceptor preHandle error", e);
+        if (null == loginInfo) {
+            error(response, "未登录");
             return false;
         }
+        SecurityUtil.setValue(loginInfo);
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        SecurityUtil.remove();
     }
 }

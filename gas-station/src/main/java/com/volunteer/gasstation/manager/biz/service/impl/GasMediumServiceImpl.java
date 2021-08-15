@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author huoyao
- * @since 2021-08-14
+ * @since 2021-08-15
  */
 @Service
 public class GasMediumServiceImpl extends ServiceImpl<GasMediumMapper, GasMedium> implements IGasMediumService {

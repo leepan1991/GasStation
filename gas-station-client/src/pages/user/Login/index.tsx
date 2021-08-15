@@ -29,7 +29,7 @@ const Login: React.FC = () => {
     try {
       // 登录
       const msg = await login({...values});
-      console.log(msg)
+
       if (msg.code === 0) {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',

@@ -1,6 +1,8 @@
 package com.volunteer.gasstation.api.controller;
 
+import com.volunteer.gasstation.api.dto.ApiLoginInfoDTO;
 import com.volunteer.gasstation.core.ResponseResult;
+import com.volunteer.gasstation.core.SecurityUtil;
 import com.volunteer.gasstation.manager.biz.converter.GasBottleConverter;
 import com.volunteer.gasstation.manager.biz.dto.GasBottleDTO;
 import com.volunteer.gasstation.manager.biz.entity.GasBottle;
@@ -27,10 +29,17 @@ public class ApiGasBottleController {
 
     @PostMapping
     public ResponseResult save(@RequestBody GasBottleDTO record) {
+        ApiLoginInfoDTO loginInfo = SecurityUtil.getValue();
         GasBottle gasBottle = GasBottleConverter.INSTANCE.map(record);
         gasBottle.setDeleted(Boolean.FALSE);
         gasBottle.setCreateTime(LocalDateTime.now());
-        gasBottleService.save(gasBottle);
+        gasBottle.setEmployeeId(loginInfo.getEmployee().getId());
+        gasBottleService.saveOrUpdate(gasBottle);
         return new ResponseResult("添加成功", ResponseResult.ACTION_TOAST);
+    }
+
+    @PostMapping("log")
+    public ResponseResult log() {
+        return null;
     }
 }

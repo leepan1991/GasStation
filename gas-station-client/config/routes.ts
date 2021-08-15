@@ -17,6 +17,10 @@
     path: '/system/resource',
     component: './system/resource',
     access: 'normalRouteFilter',
+  }, {
+    name: 'portal',
+    path: '/system/portal',
+    component: './system/portal',
   }]
 }, {
   name: 'gasMedium',

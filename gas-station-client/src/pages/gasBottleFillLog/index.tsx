@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {PageContainer} from "@ant-design/pro-layout";
+import LogTable from "@/pages/gasBottleFillLog/components/LogTable";
 
 const GasBottleFillLog: React.FC = () => {
   const [tabKey, setTabKey] = useState<string>('diwen');
@@ -23,7 +24,7 @@ const GasBottleFillLog: React.FC = () => {
                      tab: '溶解乙炔',
                      key: 'yique'
                    }]}>
-
+      <LogTable/>
     </PageContainer>
   );
 }

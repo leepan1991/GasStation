@@ -13,6 +13,11 @@ public class GasBottleDTO {
     private Long id;
 
     /**
+     * 芯片Code
+     */
+    private String xpCode;
+
+    /**
      * 气瓶编号(自编号)[1]QPNO
      */
     private String qpno;

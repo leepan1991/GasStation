@@ -6,6 +6,7 @@ export default {
   'menu.system.user': '用户管理',
   'menu.system.role': '角色管理',
   'menu.system.resource': '资源管理',
+  'menu.system.portal': '配置',
   'menu.employee': '手机账号',
   'menu.gasMedium': '介质管理',
   'menu.gasBottle': '气瓶管理',

@@ -22,6 +22,14 @@ const Employee: React.FC = () => {
     title: '电话',
     dataIndex: 'phone',
   }, {
+    title: '类型',
+    dataIndex: 'type',
+    valueEnum: {
+      1: '充装员',
+      2: '质检员',
+      3: '管理员'
+    }
+  }, {
     title: '创建时间',
     dataIndex: 'createTime',
     search: false

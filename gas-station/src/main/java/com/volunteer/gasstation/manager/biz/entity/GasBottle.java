@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author huoyao
- * @since 2021-08-14
+ * @since 2021-08-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,6 +26,15 @@ public class GasBottle implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+
+    @TableField("employee_id")
+    private Long employeeId;
+
+    /**
+     * 芯片Code
+     */
+    @TableField("xp_code")
+    private String xpCode;
 
     /**
      * 气瓶编号(自编号)[1]QPNO
