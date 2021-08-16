@@ -1,7 +1,9 @@
 package com.volunteer.gasstation.api.controller;
 
+import com.volunteer.gasstation.manager.biz.dto.PortalConfigDTO;
 import com.volunteer.gasstation.manager.biz.entity.PortalConfig;
 import com.volunteer.gasstation.manager.biz.service.IPortalConfigService;
+import com.volunteer.gasstation.manager.biz.service.impl.PortalConfigServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,18 +22,13 @@ public class PortalController {
 
     public PortalController(IPortalConfigService portalConfigService) {
         this.portalConfigService = portalConfigService;
+        portalConfigService.cache();
     }
 
     @RequestMapping
     public String index(Model model) {
-        List<PortalConfig> portalConfigList = portalConfigService.list();
-        for (PortalConfig config : portalConfigList) {
-            if (StringUtils.equalsIgnoreCase(config.getCode(), "qiye")) {
-                model.addAttribute("qiye", config.getContent());
-            } else if (StringUtils.equalsIgnoreCase(config.getCode(), "anquan")) {
-                model.addAttribute("anquan", config.getContent());
-            }
-        }
+        model.addAttribute("qiye", PortalConfigServiceImpl.portalConfigCache.getQiye());
+        model.addAttribute("anquan", PortalConfigServiceImpl.portalConfigCache.getAnquan());
         return "index";
     }
 }

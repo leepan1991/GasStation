@@ -1,5 +1,6 @@
 package com.volunteer.gasstation.manager.biz.service;
 
+import com.volunteer.gasstation.manager.biz.dto.PortalConfigDTO;
 import com.volunteer.gasstation.manager.biz.entity.PortalConfig;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IPortalConfigService extends IService<PortalConfig> {
 
+    /**
+     * 缓存
+     * @return
+     */
+    PortalConfigDTO cache();
 }

@@ -49,6 +49,8 @@ public class PortalConfigController {
         anquan.setCode("anquan");
         anquan.setContent(record.getAnquan());
         portalConfigService.updateById(anquan);
+
+        portalConfigService.cache();
         return new ResponseResult("保存成功", ResponseResult.ACTION_TOAST);
     }
 }
